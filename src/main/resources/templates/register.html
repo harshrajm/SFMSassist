@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+    <script th:src="@{js/angular/angular.js}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/register.css}" />
+</head>
+<body>
+<div class="container-fluid" ng-controller="Ctrl as ctrl">
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+            <div class=" w3-card w3-round"  style="background-color:white;margin-bottom:50px;">
+                <div class="w3-panel " id="cardPanel">
+                    <h2 style="color:white;">User Registration</h2>
+                </div>
+
+                <form name="theForm" id="form"
+                      th:object="${userDto}"
+                      th:action="@{/registerUser}" method="POST" autocomplete="off" novalidate="novalidate">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Employee ID:</label>
+                            <input placeholder="Employee ID" type="text" class="form-control" th:field="*{empId}"
+                                   ng-pattern="/^[0-9]{1,8}$/" name="empId" ng-required="true" ng-model="user.empId"/>
+                            <span class="error" ng-if="theForm.empId.$invalid &amp;&amp; theForm.empId.$touched ">Employee ID is invalid</span>
+                            <br/>
+
+                            <label>First Name:</label>
+                            <input placeholder="First Name" type="text" class="form-control" th:field="*{fName}"
+                                   ng-pattern="/^[a-zA-Z\s]*$/" name="fName" ng-required="true" ng-model="user.fName"/>
+                            <br/>
+
+                            <label>Last Name:</label>
+                            <input placeholder="Last Name" type="text" class="form-control" th:field="*{lName}"
+                                   ng-pattern="/^[a-zA-Z\s]*$/" name="lName" ng-required="true" ng-model="user.lName"/>
+                            <br/>
+
+                            <label>TCS Mail ID:</label>
+                            <input placeholder="TCS Mail ID" type="email" class="form-control" th:field="*{tcsMail}"
+                                   name="tcsMail" ng-required="true" ng-model="user.tcsMail"/>
+                            <br/>
+
+                            <label>Alternate Mail ID:</label>
+                            <input placeholder="Alternate Mail ID" type="email" class="form-control"
+                                   th:field="*{altMail}"
+                                   name="altMail" ng-required="true" ng-model="user.altMail"/>
+                            <br/>
+
+                            <label>Date of Birth:</label>
+                            <input ng-required="true" ng-model="user.dob" placeholder="Date of birth" type="date"
+                                   class="form-control" th:field="*{dob}" id="dob"
+                                   name="dob"/>
+                            <br/>
+
+
+                            <label>Gender:</label>
+                            <input type="radio" name="gender" value="1" th:field="*{gender}" ng-required="true"
+                                   ng-model="user.gender"/> Male
+                            <input type="radio" name="gender" value="2" th:field="*{gender}" ng-required="true"
+                                   ng-model="user.gender"/> Female<br/>
+
+                            <br/>
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label>Date of Joining:</label>
+                            <input ng-required="true" ng-model="user.doj" placeholder="Date of Joining" type="date"
+                                   class="form-control" th:field="*{doj}" id="doj"
+                                   name="doj"/>
+                            <br/>
+                            <label>Mobile Number:</label>
+                            <input placeholder="Mobile Number" type="text" class="form-control" th:field="*{mobile}"
+                                   ng-pattern="/^[0-9]{1,10}$/" name="mobile" ng-required="true"
+                                   ng-model="user.mobile"/>
+
+                            <br/>
+
+                            <label>Alternate Mobile Number:</label>
+                            <input placeholder="Alternate Mobile Number" type="text" class="form-control"
+                                   ng-pattern="/^[0-9]{1,8}$/" th:field="*{altMobile}" name="altMobile"
+                                   ng-required="true" ng-model="user.altMobile"/>
+                            <br/>
+
+                            <label>Address:</label>
+                            <textarea placeholder="Address" class="form-control" th:field="*{address}"
+                                      name="address" ng-required="true" ng-model="user.address"></textarea>
+                            <br/>
+
+
+                            <label>Password:</label>
+                            <input placeholder="Password" type="password" class="form-control" th:field="*{password}"
+                                   name="password" ng-required="true" ng-model="user.password"/>
+                            <br/>
+
+
+
+
+                            <label>Confirm password:</label>
+                            <input placeholder="Confirm Password" ng-keyup="ctrl.compPwd(user)" class="form-control"
+                                   type="password" name="cPassword" ng-required="true" ng-model="user.cPassword"/>
+                            <span class="error" ng-if="ctrl.pwdIsNotSame">Passwords do not match!</span>
+                            <br/>
+
+                            <!--<label>Picture link:</label>
+                            <input placeholder="Picture link" type="text" class="form-control" th:field="*{pLink}"/>-->
+                        </div>
+
+                    </div>
+
+
+                    <br/>
+                    <button  ng-disabled="theForm.$invalid || ctrl.pwdIsNotSame"
+                            type="submit" class="btn btn-primary">Submit
+                    </button>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
+
+</div>
+
+<script th:src="@{js/register.ctrl.js}"></script>
+
+</body>
+</html>

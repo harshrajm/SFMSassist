@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!--<script th:src="@{js/angular/angular.js}"></script>
+    <script th:src="@{js/home.serv.js}"></script>-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.4.0/typeit.min.js"></script>
+</head>
+<body style="background-color:#f5f7f8;">
+<div class="container">
+    <div class="row" style="margin-top:50px;">
+        <h3 id="title"></h3>
+    </div>
+    <div class="row" style="margin-top:80px;">
+        <div th:if="${userInserted} == true" class="alert alert-success alert-dismissable">
+            <strong>Success!</strong> user created
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <!--<div class="alert alert-success alert-dismissable">
+                <strong>Success!</strong> user created
+            </div>-->
+        <div class="  w3-card w3-round" style="background-color:white;">
+
+            <div class="w3-panel " style="background-color:#607D8B;">
+                <h2 style="color:white;">Login</h2>
+            </div>
+
+            <form style="padding-right:20px;padding-left:20px;padding-bottom:25px;">
+                <div class="form-group">
+                    <label for="email">Employee ID:</label>
+                    <input  placeholder="Employee ID" type="text" class="form-control" id="email" name="username"/>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input placeholder="Password" type="password" class="form-control" id="pwd" name="password"/>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button><br/><br/>
+                <a href="https://www.google.co.in" class="small" >Forgot password?</a>
+                <hr/>
+                <a href="/registerUser" class="small" >Not a user? Click here to register</a>
+            </form>
+
+        </div>
+    </div>
+        <div class="col-sm-4"></div>
+    </div>
+
+
+</div>
+
+
+
+<script th:src="@{js/login.js}"></script>
+
+</body>
+</html>

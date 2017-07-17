@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script th:src="@{js/angular/angular.js}"></script>
+    <script th:src="@{js/home.serv.js}"></script>
+    <script th:src="@{js/home.ctrl.js}"></script>
+
+</head>
+<body>
+
+<div ng-controller="Ctrl as ctrl">
+    <p>{{ctrl.xyz}}</p>
+
+    <button ng-click="ctrl.onClick()">load data</button>
+
+    <div ng-repeat="contact in ctrl.contacts">
+        <p>{{contact.id}}</p>
+        <p>{{contact.name}}</p>
+        <p>{{contact.mobile}}</p>
+        <p>{{contact.nation}}</p><hr/>
+
+    </div>
+    <!--<h3>qazxsw</h3>
+    <p>{{ctrl.contacts.id}}</p>
+    <p>{{ctrl.contacts.name}}</p>
+    <p>{{ctrl.contacts.mobile}}</p>
+    <p>{{ctrl.contacts.nation}}</p><hr/>-->
+
+    <h3>qazxsw</h3>
+    <ul ng-repeat="item in ctrl.contacts">
+        <li ng-repeat="(key, val) in item">
+            {{key}}: {{val}}
+        </li>
+    </ul>
+
+
+</div>
+
+
+
+</body>
+</html>
