@@ -14,4 +14,7 @@ public interface HomeService {
     List<IssueDetail> getTicketsOfUser(int issueSatus, int  userId );
 
     List<IssueDetail> getOpenProductionIssues();
+
+	List<IssueDetail> getLastFiftyIssue();
+
 }

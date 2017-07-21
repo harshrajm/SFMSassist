@@ -36,4 +36,13 @@ public class HomeServiceImpl implements HomeService {
     public List<IssueDetail> getOpenProductionIssues() {
         return issueDetailRepository.findByIssueTypeAndIssueStatus(Constants.ISSUE_TYPE_PRODUCTION,Constants.ISSUE_STATUS_OPEN);
     }
+
+	public List<IssueDetail> getLastFiftyIssue() {
+
+		System.out.println("inside service impl");
+		return issueDetailRepository.findLast8ByOrderByIssueLoggedOn();
+
+	}
+    
+    
 }

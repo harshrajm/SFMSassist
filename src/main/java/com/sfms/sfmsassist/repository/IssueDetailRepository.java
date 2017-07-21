@@ -16,4 +16,7 @@ public interface IssueDetailRepository extends JpaRepository<IssueDetail,Long> {
     //ByOrderByIssueIdDesc
 
     List<IssueDetail> findByIssueTypeAndIssueStatus(int issueType,int issueStatus);
+
+	List<IssueDetail> findLast8ByOrderByIssueLoggedOn();
+	
 }

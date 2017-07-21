@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 21-07-2017.
@@ -37,15 +40,36 @@ public class HomeController {
 
         issueDetails = addStringNames(issueDetails);
 
+        List<IssueDetail> trendingIssues=homeService.getLastFiftyIssue();
+        List<IssueDetail> trendingIssuesSubList=trendingIssues.subList(trendingIssues.size()-8, trendingIssues.size());
+       System.out.println(trendingIssues.size());
+        System.out.println(trendingIssues.size()-8+"dvfxdfb"+trendingIssues.size());
+        System.out.println(trendingIssuesSubList.size()+"jhasvcghvasdghscvhsag ");
+        for(IssueDetail abc:trendingIssuesSubList){
+        System.out.println(abc.getIssueSubCatStr());
+        }
+/*        trendingIssues=getTrendingIssues();
+*/    ;
+
+Set<IssueDetail> unique = new HashSet<IssueDetail>(trendingIssuesSubList);
+for (IssueDetail key : unique) {
+    System.out.println(key + ": " + Collections.frequency(trendingIssuesSubList, key));
+} 
+        
+        
+       
         String json = new Gson().toJson(issueDetails);
 
-        System.out.println(json);
 
         model.addAttribute("myOpenIssues",json);
         model.addAttribute("openProductionIssues",issueDetailsOpenAndProd);
         return "home";
     }
 
+    
+    
+    
+    
       List<IssueDetail> addStringNames(List<IssueDetail> issueDetails) {
 
         for(IssueDetail issueDetail :issueDetails){
