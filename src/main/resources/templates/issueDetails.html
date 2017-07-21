@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+    <script th:src="@{js/angular/angular.js}"></script>
+    <script th:src="@{js/issueDetail.ctrl.js}"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/issueDetails.css}"/>
+
+
+
+
+    <style>
+
+
+    </style>
+
+</head>
+<body>
+<div class="container-fluid" ng-controller="Ctrl as ctrl">
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+            <div class=" w3-card " style="background-color:white;margin-bottom:50px;">
+                <div class="w3-panel " id="cardPanel">
+                    <h2 style="color:white;">Enter Issue Details</h2>
+                </div>
+
+                <form name="theForm" id="form" th:action="@{/submitIssue}" method="POST" autocomplete="off"
+                      novalidate="novalidate">
+
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <label>Ticket ID:</label>
+
+                            <input ng-required="true" placeholder="Ticket ID" type="text" class="form-control"
+                                   name="ticketId" ng-model="issue.ticketId"/>
+                            <br/>
+
+                            <label>Bank:</label>
+
+                            <select data-show-subtext="true" data-live-search="true" title="Choose Bank"
+                                    class="selectpicker form-control"
+                                    ng-required="true" ng-model="issue.bankId" id="bankId" name="bankId">
+
+                                <option th:each="bank : ${bankList}" th:value="${bank.bankId}"
+                                        th:text="${bank.bankCode}+' - ' + ${bank.bankName}"></option>
+                            </select>
+                            <br/>
+
+                            <br/>
+                            <label>Issue Type:</label><br/>
+                            <input type="radio" name="issueType" value="1" ng-required="true"
+                                   ng-model="issue.issueType"/> UAT
+                            <input type="radio" name="issueType" value="2" ng-required="true"
+                                   ng-model="issue.issueType"/> Production
+                            <br/>
+                            <br/>
+
+                            <label>SFMS Version:</label>
+                            <select ng-change="ctrl.clicked()" class="form-control" ng-required="true"
+                                    ng-model="issue.sfmsVer" id="sfmsVer"
+                                    name="sfmsVer">
+
+                                <option value="1">v5.5.4</option>
+                                <option value="2">v5.5.5</option>
+                                <option value="3">v5.5.6</option>
+                                <option value="4">v5.7</option>
+                                <option value="5">v5.7.1</option>
+                                <option value="6">v6.0</option>
+
+                            </select>
+
+                            <br/>
+
+                            <label ng-if="ctrl.loaded">Issue Category:</label>
+
+
+                            <select ng-if="ctrl.loaded" class=" form-control" ng-required="true" ng-model="selectedCat"
+                                    ng-change="ctrl.clicked2(selectedCat)" name="selectedCat">
+
+                                <option ng-repeat="categ in ctrl.categList" value="{{categ.issueCategoryId}}">
+                                    {{categ.issueCategoryDesc}}
+                                </option>
+
+                            </select>
+
+                            <br/>
+
+                            <label ng-if="ctrl.loadedSubCat">Issue Sub Category:</label>
+
+
+                            <select ng-if="ctrl.loadedSubCat" class=" form-control" ng-required="true"
+                                    ng-model="selectedSubCat"
+                                    name="selectedSubCat">
+                                <option ng-repeat="subCateg in ctrl.subCategList"
+                                        value="{{subCateg.issueSubCategoryId}}">{{subCateg.issueSubCategoryDesc}}
+                                </option>
+                            </select>
+
+
+                            <div ng-if="theForm.selectedSubCat.$valid" class="checkbox">
+                                <label><input type="checkbox" ng-click="ctrl.checkBxClk()"  name="solCheckbox"/>Instant close</label>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-sm-8">
+
+                            <label>Title:</label>
+                            <input placeholder="Title" type="text" class="form-control"
+                                   name="title" ng-required="true" ng-model="issue.title"/>
+                            <br/>
+
+                            <label>Description:</label>
+                            <textarea rows="17" placeholder="Description" type="text" class="form-control"
+
+                                      name="desc" ng-required="true" ng-model="issue.desc"></textarea>
+
+
+                        </div>
+
+                        <div class="row" ng-if="ctrl.showSol">
+                            <div class="col-sm-12">
+                                <label>Solution:</label>
+                                <textarea  ng-required="true" rows="17" placeholder="Solution" type="text" class="form-control"
+
+                                          name="sol" ng-model="issue.sol"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br/>
+                    <input ng-disabled="theForm.$invalid"
+                           type="submit" class="btn btn-primary">
+                    </input>
+
+
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
+
+</div>
+
+
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+$('.selectpicker').selectpicker({
+
+  size: 6
+});
+/*]]>*/
+</script>
+
+
+</body>
+</html>

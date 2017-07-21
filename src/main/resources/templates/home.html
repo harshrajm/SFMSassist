@@ -1,42 +1,178 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
-
 <head>
+
     <script th:src="@{js/angular/angular.js}"></script>
-    <script th:src="@{js/home.serv.js}"></script>
     <script th:src="@{js/home.ctrl.js}"></script>
 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title></title>
+
+    <style type="text/css">
+
+    body{
+background-color:#f5f7f8;
+}
+
+		.padding-0{
+    padding-right:0;
+    padding-left:0;
+    }
+ .w3-card{
+ background-color:white;
+ }
+
+ .homeBtn{
+ background-color:#90A4AE;
+ }
+
+ .issueCard{
+ padding-top:5px;padding-bottom:7px;
+ }
+
+ .issueCard:hover {
+   box-shadow:0 5px 10px 0 rgba(0,0,0,0.16),0 5px 15px 0 rgba(0,0,0,0.12);
+}
+
+a {
+color: inherit;
+}
+
+    </style>
 </head>
-<body>
+<body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${myOpenIssues}" >
+<div class="container-fluid">
+    <div class="row">
+       <!-- result: {{ctrl.result}}-->
 
-<div ng-controller="Ctrl as ctrl">
-    <p>{{ctrl.xyz}}</p>
+        <div class="col-sm-3 ">
+            <div class="w3-panel w3-card">
+                <h4 class="text-center">Harshraj M</h4>
+                <p class="text-center"><img src="http://www.newsshare.in/wp-content/uploads/2017/04/Miniclip-8-Ball-Pool-Avatar-16.png" class="img-circle" alt="Profile Pic" width="150" height="150"/></p>
+                <hr/>
+                <p class="text-center">1040218</p>
+                <p class="text-center">harshraj.m@tcs.com</p>
 
-    <button ng-click="ctrl.onClick()">load data</button>
+            </div>
+            <div class="w3-card-2 w3-round">
+                <div class="w3-white">
+                    <a href="/addIssueDetails" id="addIssue" class="homeBtn w3-button w3-block  w3-left-align"  style="text-decoration:none;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Add New Issue</a>
 
-    <div ng-repeat="contact in ctrl.contacts">
-        <p>{{contact.id}}</p>
-        <p>{{contact.name}}</p>
-        <p>{{contact.mobile}}</p>
-        <p>{{contact.nation}}</p><hr/>
+                    <button  id="openIssues"  class="homeBtn w3-button w3-block w3-left-align"><i class="glyphicon glyphicon-th-list"></i>&nbsp; All Open Issues</button>
 
+                    <button id="searchIssues"  class="homeBtn w3-button w3-block w3-left-align"><i class="glyphicon glyphicon-search"></i>&nbsp; Search Issues Repository</button>
+
+                    <button id="provideClassFile" class="homeBtn w3-button w3-block  w3-left-align"><i class="glyphicon glyphicon-folder-close"></i>&nbsp; Provide Class File</button>
+
+                    <!--<button id="allItems" class="homeBtn w3-button w3-block  w3-left-align"><i class="glyphicon glyphicon-list-alt"></i>&nbsp; All Items</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6  padding-0" style="padding-top:5px;">
+            <div th:if="${ticketIdAlreadyPresent} == true" class="alert alert-danger alert-dismissable">
+                <strong>Ticket ID</strong> already present
+            </div>
+            <div th:if="${issueInsertedAndClosed} == true" class="alert alert-success alert-dismissable">
+                Issue Inserted And Closed!
+            </div>
+            <div th:if="${issueInserted} == true" class="alert alert-info alert-dismissable">
+                Issue Inserted!
+            </div>
+            <div class="w3-panel w3-card" >
+                <br/>
+                <input type="text" class="form-control" placeholder="Search Your Issues" ng-model="query"/>
+                <br/>
+            </div>
+
+            <span class="text-muted" >Showing {{filtered.length}} Issue(s)</span>
+            <div ng-repeat="issue in ctrl.result | filter:query as filtered">
+
+
+               <a ng-href="/showIssueDetails/{{issue.issueId}}" style="text-decoration:none;"> <div class="w3-panel w3-card issueCard"  >
+                    <span class="label label-default">{{issue.ticketId}}</span>
+                    <span class="label label-default">{{issue.bankCodeStr}}</span>
+                    <span class="pull-right text-muted" >{{issue.issueLoggedOn}}</span>
+                    <h4>{{issue.issueTitle}}</h4>
+                    <p>{{issue.issueDesc}}</p>
+                    <span class="label label-primary">{{issue.issueCatStr}}</span>
+                    <span class="label label-info">{{issue.issueSubCatStr}}</span>
+                    <span ng-show="issue.issueTypeStr == 'Production'" class="pull-right label label-danger">Production</span>
+                    <span ng-show="issue.issueTypeStr == 'UAT'" class="pull-right label label-warning">UAT</span>
+
+                </div></a>
+
+            </div>
+
+           <!-- <div class="w3-panel w3-card issueCard"  >
+                <span class="label label-default">SD201310506</span>
+                <span class="label label-default">ORBC</span>
+                <span class="pull-right text-muted" >2016/11/16 12:08:43</span>
+               <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+               <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                   unknown printer took a galley of type and scrambled it to make a type specimen book.
+                   It has survived not only five centuries, but also the leap into electronic typesetting
+                   , remaining essentially unchanged.</p>
+                <span class="label label-primary">RCVR CBS</span>
+                <span class="label label-info">FBAPI100</span>
+                <span class="pull-right label label-danger">Production</span>
+
+            </div>
+
+            <div  class="w3-panel w3-card issueCard"  >
+                <span class="label label-default">SD201310506</span>
+                <span class="label label-default">ORBC</span>
+                <span class="pull-right text-muted">2016/11/16 12:08:43</span>
+                <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing </h4>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting
+                    , remaining essentially unchanged.</p>
+                <span class="label label-primary">Sender</span>
+                <span class="label label-info">Not Starting</span>
+                <span class="pull-right label label-warning">UAT</span>
+
+            </div>-->
+
+
+
+
+
+        </div>
+        <div class="col-sm-3">
+            <div class="w3-panel w3-card">
+                <h4 class="text-center">Open Production Issues</h4>
+                <p class="text-center">
+                <a th:href="@{'/showIssueDetails/'+${issue.issueId}}" th:each="issue : ${openProductionIssues}" th:text="${issue.ticketId}" class="label label-default"></a>
+               <!-- <span class="label label-default">SD201310506</span>
+                <span class="label label-default">SD201310507</span>
+                <span class="label label-default">SD201310508</span>
+                <span class="label label-default">SD201310509</span>
+                <span class="label label-default">SD201310500</span>
+                <span class="label label-default">SD201310501</span>
+                <span class="label label-default">SD201310506</span>
+                <span class="label label-default">SD201310507</span>
+                <span class="label label-default">SD201310508</span>
+                <span class="label label-default">SD201310509</span>
+                <span class="label label-default">SD201310500</span>
+                <span class="label label-default">SD201310501</span>-->
+                </p>
+            </div>
+            <br/>
+
+
+
+
+        </div>
     </div>
-    <!--<h3>qazxsw</h3>
-    <p>{{ctrl.contacts.id}}</p>
-    <p>{{ctrl.contacts.name}}</p>
-    <p>{{ctrl.contacts.mobile}}</p>
-    <p>{{ctrl.contacts.nation}}</p><hr/>-->
-
-    <h3>qazxsw</h3>
-    <ul ng-repeat="item in ctrl.contacts">
-        <li ng-repeat="(key, val) in item">
-            {{key}}: {{val}}
-        </li>
-    </ul>
-
-
 </div>
-
 
 
 </body>

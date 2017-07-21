@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public UserDetail getUserByEmpId(long x) {
+        return userDetailsRepository.getOne(x);
+    }
+
     public static Date stringToDate(String dateInString){
 
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");

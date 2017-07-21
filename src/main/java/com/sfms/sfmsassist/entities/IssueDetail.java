@@ -1,12 +1,9 @@
 package com.sfms.sfmsassist.entities;
 
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.lang.Integer;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -80,10 +77,63 @@ public class IssueDetail implements Serializable {
 	private Integer issueVersion;
 
 	@Column(name="SFMS_VER")
-	private String sfmsVer;
+	private Integer sfmsVer;
 
 	@Column(name="TICKET_ID")
 	private String ticketId;
+
+	@Transient
+	@JsonProperty("bankCodeStr")
+	private String bankCodeStr;
+
+	@Transient
+	@JsonProperty("issueCatStr")
+	private String issueCatStr;
+
+	@Transient
+	@JsonProperty("issueSubCatStr")
+	private String issueSubCatStr;
+
+	@Transient
+	@JsonProperty("issueTypeStr")
+	private String issueTypeStr;
+
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getBankCodeStr() {
+		return bankCodeStr;
+	}
+
+	public void setBankCodeStr(String bankCodeStr) {
+		this.bankCodeStr = bankCodeStr;
+	}
+
+	public String getIssueCatStr() {
+		return issueCatStr;
+	}
+
+	public void setIssueCatStr(String issueCatStr) {
+		this.issueCatStr = issueCatStr;
+	}
+
+	public String getIssueSubCatStr() {
+		return issueSubCatStr;
+	}
+
+	public void setIssueSubCatStr(String issueSubCatStr) {
+		this.issueSubCatStr = issueSubCatStr;
+	}
+
+	public String getIssueTypeStr() {
+		return issueTypeStr;
+	}
+
+	public void setIssueTypeStr(String issueTypeStr) {
+		this.issueTypeStr = issueTypeStr;
+	}
 
 	public IssueDetail() {
 	}
@@ -224,11 +274,11 @@ public class IssueDetail implements Serializable {
 		this.issueVersion = issueVersion;
 	}
 
-	public String getSfmsVer() {
+	public Integer getSfmsVer() {
 		return this.sfmsVer;
 	}
 
-	public void setSfmsVer(String sfmsVer) {
+	public void setSfmsVer(Integer sfmsVer) {
 		this.sfmsVer = sfmsVer;
 	}
 

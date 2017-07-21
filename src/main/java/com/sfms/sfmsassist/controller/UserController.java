@@ -29,22 +29,6 @@ public class UserController {
     {
 
         UserDto userDto = new UserDto();
-        /*userDto.setEmpId();
-        userDto.setfName("fName");
-        userDto.setlName("lName");
-        userDto.setTcsMail("tcsMail");
-        userDto.setAltMail("altMail");
-        userDto.setDob("dob");
-        userDto.setDoj("doj");
-        userDto.setPassword("password");
-        userDto.setMobile("mobile");
-        userDto.setAltMobile(0L);
-        userDto.setAddress("");
-        userDto.setGender(0);
-        userDto.setpLink("");*/
-        //userDto.setpLink("");
-
-
 
         model.addAttribute("userDto",userDto);
 
@@ -60,10 +44,7 @@ public class UserController {
         System.out.println(userDto.toString());
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-       String hashedPassword = passwordEncoder.encode(userDto.getPassword());
-       // System.out.println("hashed pwd :"+hashedPassword);
-
-        //https://image.freepik.com/free-icon/profile-user-silhouette_318-40557.jpg
+        String hashedPassword = passwordEncoder.encode(userDto.getPassword());
         userService.insertUser(userDto,hashedPassword);
         System.out.println("inserted!!!!!!!!");
 
@@ -71,6 +52,9 @@ public class UserController {
 
         return "login";
     }
+
+
+
 
 
 }

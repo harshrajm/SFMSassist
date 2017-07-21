@@ -1,0 +1,26 @@
+input.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched{
+border: 1px solid red;
+}
+
+select.ng-invalid.ng-touched {border: 1px solid red;}
+
+body{
+background-color:#f5f7f8;
+}
+
+.error{
+color:red;
+}
+
+textarea{
+resize: none;
+}
+
+
+#cardPanel{
+background-color:#607D8B;
+}
+
+#form{
+padding-right:20px;padding-left:20px;padding-bottom:25px;
+}

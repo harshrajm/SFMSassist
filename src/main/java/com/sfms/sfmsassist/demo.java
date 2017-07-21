@@ -105,12 +105,23 @@ public class demo {
     @RequestMapping("/insertSubCateg")
     public String insertSubCateg(){
 
-        IssueSubCategory issueSubCategory = new IssueSubCategory();
-        issueSubCategory.setIssueCategoryId(4);
-        issueSubCategory.setIssueSubCategoryDesc("FBAPI100");
-        issueSubCategory.setCreatedBy(1040218);
 
-        issueSubCategoryRepository.save(issueSubCategory);
+
+
+
+        IssueSubCategory issueSubCategory11 = new IssueSubCategory();
+        issueSubCategory11.setIssueCategoryId(5);
+        issueSubCategory11.setIssueSubCategoryDesc("Sender error 1");
+        issueSubCategory11.setCreatedBy(1040218);
+
+        issueSubCategoryRepository.save(issueSubCategory11);
+
+        IssueSubCategory issueSubCategory111 = new IssueSubCategory();
+        issueSubCategory111.setIssueCategoryId(5);
+        issueSubCategory111.setIssueSubCategoryDesc("Sender error 3");
+        issueSubCategory111.setCreatedBy(1040218);
+
+        issueSubCategoryRepository.save(issueSubCategory111);
 
         return "inserted";
     }
@@ -156,7 +167,7 @@ public class demo {
         issueDetail.setIssueSubCategory(2);
         issueDetail.setIssueTitle("FBAPI");
         issueDetail.setIssueType(2);
-        issueDetail.setSfmsVer("557");
+        issueDetail.setSfmsVer(3);
         issueDetail.setTicketId("SD201755555");
 
 
@@ -166,10 +177,10 @@ public class demo {
         return "issue inserted";
     }
 
-    @RequestMapping("/home")
+    /*@RequestMapping("/home")
     public void home(){
 
-    }
+    }*/
 
     @RequestMapping("/login")
     public void login(){
