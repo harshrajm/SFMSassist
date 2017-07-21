@@ -10,11 +10,11 @@
 
 	<name>SfmsAssist</name>
 	<description>App for tracking tickets</description>
-
+<!-- mahideep -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
+		<version>1.4.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
