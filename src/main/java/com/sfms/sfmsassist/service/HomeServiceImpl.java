@@ -1,12 +1,14 @@
 package com.sfms.sfmsassist.service;
 
-import com.sfms.sfmsassist.constants.Constants;
-import com.sfms.sfmsassist.entities.IssueDetail;
-import com.sfms.sfmsassist.repository.IssueDetailRepository;
+import java.util.Calendar;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.sfms.sfmsassist.constants.Constants;
+import com.sfms.sfmsassist.entities.IssueDetail;
+import com.sfms.sfmsassist.repository.IssueDetailRepository;
 
 /**
  * Created by Administrator on 21-07-2017.
@@ -39,8 +41,13 @@ public class HomeServiceImpl implements HomeService {
 
 	public List<IssueDetail> getLastFiftyIssue() {
 
+		
+		Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, -7);
+				System.out.println("Date = "+ cal.getTime());
 		System.out.println("inside service impl");
-		return issueDetailRepository.findLast8ByOrderByIssueLoggedOn();
+/*		return issueDetailRepository.findFirst8ByOrderByIssueLoggedOn();
+*/		return issueDetailRepository.findByIssueLoggedOnGreaterThanEqual(cal.getTime());
 
 	}
     
