@@ -2,6 +2,7 @@ package com.sfms.sfmsassist.service;
 
 import com.sfms.sfmsassist.entities.IssueDetail;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,5 +17,7 @@ public interface HomeService {
     List<IssueDetail> getOpenProductionIssues();
 
 	List<IssueDetail> getLastFiftyIssue();
+
+	HashMap<String, Integer> getTrendingIssuesDetails();
 
 }

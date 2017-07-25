@@ -165,6 +165,17 @@ color: inherit;
                 <span class="label label-default">SD201310501</span>-->
                 </p>
             </div>
+            
+            <div class="w3-panel w3-card">
+                <h4 class="text-center">Trending Issues</h4>
+                
+               <div style="padding-bottom:5px;" class="text-center" th:each="issue : ${trendingIssues}">
+                <span style="margin-top:2px;" th:text="${issue.key}"> </span>
+                 <span  class="badge" th:text="${issue.value}"></span><br/>
+                </div> 
+                
+                
+            </div>
             <br/>
 
 
