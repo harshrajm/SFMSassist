@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+    <script th:src="@{js/angular/angular.js}"></script>
+    <script th:src="@{js/allIssues.ctrl.js}"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/issueDetails.css}"/>-->
+
+
+
+
+    <style>
+        body{
+background-color:#f5f7f8;
+}
+
+		.padding-0{
+    padding-right:0;
+    padding-left:0;
+    }
+ .w3-card{
+ background-color:white;
+ }
+
+ .homeBtn{
+ background-color:#90A4AE;
+ }
+
+ .issueCard{
+ padding-top:5px;padding-bottom:7px;
+ }
+
+ .issueCard:hover {
+   box-shadow:0 5px 10px 0 rgba(0,0,0,0.16),0 5px 15px 0 rgba(0,0,0,0.12);
+}
+
+a {
+color: inherit;
+}
+
+.closed{
+border-left:3px solid #263238;
+}
+
+.open{
+border-left:3px solid #90A4AE;
+}
+
+.label-closed{
+background-color:#37474F;
+}
+
+
+
+    </style>
+
+</head>
+<body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${allIssues}">
+<div class="container-fluid" style="padding-bottom:10px;">
+        <!--{{ctrl.xyz}}
+    {{ctrl.pageCnt}}-->
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-2">
+
+            <div class="w3-panel w3-card" style="margin-top:150px;padding-bottom:10px;">
+
+                <h4 class="text-center">Filter List</h4>
+                <hr/>
+                <input type="checkbox"/> UAT <br/>
+                <input type="checkbox"/> Production<br/>
+                <input type="checkbox"/> Pending/Open <br/>
+                <input type="checkbox"/> Closed <br/>
+                <input type="checkbox"/> Your Tickets
+
+
+            </div>
+
+        </div>
+        <div class="col-sm-8">
+
+            <div class="w3-panel w3-card">
+                <br/>
+                <input type="text" class="form-control" placeholder="Search All Issues (eg. UAT/Production/ticket ID/Bank code etc.)" ng-model="query"/>
+                <br/>
+            </div>
+
+            <span class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
+
+            <div ng-repeat="issue in ctrl.result | filter:query as filtered " >
+
+
+                <a ng-href="/showIssueDetails/{{issue.issueId}}" style="text-decoration:none;">
+                    <div class="w3-panel w3-card issueCard" ng-class="{'closed': issue.isClosed,'open': !issue.isClosed}">
+
+                        <span class="label label-default">{{issue.ticketId}}</span>
+                        <span class="label label-default">{{issue.bankCodeStr}}</span>
+                        <!--{{issue.isAssigned}}-->
+                        <span class="label label-closed" ng-show="issue.isClosed">Closed</span>
+                        <span class="label label-success" ng-show="issue.isYourTicket">Your Issue</span>
+                        <!--<span class="label label-success" ng-show="issue.assignedToYou">Assigned to you</span>-->
+
+                        <!--<span class="label label-success" ng-show="issue.isAssigned">Assigned to you</span>-->
+                        <span class="pull-right text-muted">{{issue.issueLoggedOn | date: 'medium'}}</span>
+                        <h4>{{issue.issueTitle}}</h4>
+                        <p>{{issue.issueDesc}}</p>
+                        <span class="label label-primary">{{issue.issueCatStr}}</span>
+                        <span class="label label-info">{{issue.issueSubCatStr}}</span>
+                        <span ng-show="issue.issueTypeStr == 'Production'" class="pull-right label label-danger">Production</span>
+                        <span ng-show="issue.issueTypeStr == 'UAT'" class="pull-right label label-warning">UAT</span>
+
+                    </div>
+                </a>
+
+            </div>
+            <span class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
+
+            <button id="loadBtn" ng-show="ctrl.loadMoreBtnVisible" ng-click="ctrl.loadMore()" class="btn btn-default btn-block" style="margin-top:10px;">{{ctrl.buttonTxt}} </button>
+
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
+
+</div>
+
+
+
+{{ctrl.pageCnt}}
+</body>
+</html>

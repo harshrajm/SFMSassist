@@ -1,13 +1,9 @@
 package com.sfms.sfmsassist.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.lang.Integer;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -58,6 +54,30 @@ public class AssigningDetail implements Serializable {
 
 	@Column(name="UPDATED_BY")
 	private Integer updatedBy;
+
+	@Transient
+	@JsonProperty("fromName")
+	private String fromName;
+
+	@Transient
+	@JsonProperty("toName")
+	private String toName;
+
+	public String getFromName() {
+		return fromName;
+	}
+
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
+
+	public String getToName() {
+		return toName;
+	}
+
+	public void setToName(String toName) {
+		this.toName = toName;
+	}
 
 	public AssigningDetail() {
 	}

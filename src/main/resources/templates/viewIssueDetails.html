@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html  ng-app="myApp"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <script th:src="@{/js/angular/angular.js}"></script>
+    <script th:src="@{/js/viewIssueDetails.ctrl.js}"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
+
+
+    <style>
+input.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched{
+border: 1px solid red;
+}
+
+select.ng-invalid.ng-touched {border: 1px solid red;}
+
+body{
+background-color:#f5f7f8;
+}
+
+.error{
+color:red;
+}
+
+textarea{
+resize: none;
+}
+
+
+#cardPanel{
+background-color:#607D8B;
+}
+
+#form{
+padding-right:20px;padding-left:20px;padding-bottom:25px;
+}
+
+
+    </style>
+
+</head>
+<body ng-controller="Ctrl as ctrl">
+<h2>{{ctrl.xyz}}</h2>
+<div class="container-fluid">
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+            <div class=" w3-card " style="background-color:white;margin-bottom:50px;">
+                <div class="w3-panel " id="cardPanel">
+                    <h2 style="color:white;">View Issue Details</h2>
+                </div>
+
+
+                <div class="row" style="padding-left:10px;padding-right:10px;">
+
+                    <div class="col-sm-12 text-center">
+
+                        <div th:if="${issueResolved} == true" class="well well-sm"><strong>Issue Resolved!</strong> by <span th:text="${resolvedBy}"/> on <span th:text="${#dates.format(issueDetail.issueResolvedOn, 'dd-MM-yyyy HH:mm')}"/></div>
+
+                        <h4>Title</h4>
+                        <p th:text="${issueDetail.issueTitle}"></p>
+                        <hr/>
+
+                        <h4>Description</h4>
+                        <p class="text-left" th:text="${issueDetail.issueDesc}"
+                           style="padding-left:15px;padding-right:15px;"></p>
+
+                        <hr/>
+                        <div th:if="${issueResolved} == true">
+                            <h4>Solution</h4>
+                            <p th:text="${solution}"></p>
+                            <hr/>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+                    <div class="row text-center" style="padding-left :10px;padding-right :10px;">
+                        <div class="col-md-4">
+                            <h4>Ticket ID</h4>
+                            <p th:text="${issueDetail.ticketId}"></p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Bank</h4>
+                            <p th:text="${issueDetail.bankNameStr}"></p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Issue Type</h4>
+                            <p th:if="${issueDetail.issueType} == 1">UAT</p>
+                            <p th:if="${issueDetail.issueType} == 2">Production</p>
+                            <hr/>
+                        </div>
+
+                    </div>
+                    <div class="row text-center" style="padding-left :10px;padding-right :10px;">
+                        <div class="col-md-4">
+                            <h4>SFMS Version</h4>
+
+                            <p th:if="${issueDetail.sfmsVer} == 1">v5.5.4</p>
+                            <p th:if="${issueDetail.sfmsVer} == 2">v5.5.5</p>
+                            <p th:if="${issueDetail.sfmsVer} == 3">v5.5.6</p>
+                            <p th:if="${issueDetail.sfmsVer} == 4">v5.7</p>
+                            <p th:if="${issueDetail.sfmsVer} == 5">v5.7.1</p>
+                            <p th:if="${issueDetail.sfmsVer} == 6">v6.0</p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Issue Category</h4>
+                            <p th:text="${issueDetail.issueCatStr}"></p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Issue Sub Category</h4>
+                            <p th:text="${issueDetail.issueSubCatStr}"></p>
+                            <hr/>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row text-center" style="padding-left :10px;padding-right :10px;">
+                        <div class="col-md-4">
+                            <h4>Issue Current Owner</h4>
+                            <p th:text="${IssueCurOwnerName}"></p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Issue Logged By</h4>
+                            <p th:text="${IssueOwnerName}"></p>
+                            <hr/>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Issue Logged On</h4>
+                            <p th:text="${#dates.format(issueDetail.issueLoggedOn, 'dd-MM-yyyy HH:mm')}"></p>
+                            <hr/>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row text-center" style="padding :10px;">
+                        <div class="col-md-4 ">
+
+
+                            <label th:if="${enableAssigning} == true" class="checkbox-inline"><input type="checkbox" value="" data-toggle="collapse" data-target="#demo"/>Assign this issue</label>
+
+                            <div id="demo" class="collapse" >
+                                <label for="sel1">Assign this issue to:</label>
+                                <form name="assignForm" action="/assignIssue" method="post">
+                                <select name="assignTo"  ng-required="true" class=" form-control" id="sel1" ng-model="issue.assign">
+                                   <option  th:if="${user.employeeId != userEmpId}" th:each="user : ${userDetails}"  th:value="${user.employeeId}" th:text="${user.firstName}+' '+${user.lastName}"></option>
+                                </select>
+                                    <input type="hidden" name="issueId" id="issueId"  th:value="${issueDetail.issueId}"/>
+
+                                    <button ng-disabled="assignForm.$invalid" style="margin-top:5px;" type="submit" class="btn btn-primary"> Assign</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-8 ">
+
+                            <label th:unless="${issueResolved} == true" class="checkbox-inline"><input type="checkbox" value="" data-toggle="collapse" data-target="#demo1"/>Close this issue</label>
+                            <div id="demo1" class="collapse">
+                                <form name="solForm" th:action="@{'/closeIssue/'+${issueDetail.issueId}}" method="post">
+                                    <textarea ng-required="true" placeholder="Enter solution here.." type="text" style="margin-top:5px;" class="form-control" rows="10"
+                                              name="solution" ng-model="issue.sol"></textarea>
+                                   <!-- <input type="hidden" name="issueId" id="issueIdForClose"  th:value="${issueDetail.issueId}"/>-->
+                                    <button ng-disabled="solForm.$invalid" style="margin-top:5px;" type="submit" class="btn btn-primary"> Submit Solution and Close Issue</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                <br/>
+
+
+
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="w3-panel w3-card text-center" style="background-color:white; padding-bottom:10px;">
+                <h4 class="text-center">Assigning Details</h4>
+            <div  th:each="details : ${assigningDetails}" >
+                <hr/>
+                <p th:text="${details.fromName}"> </p>
+                <span class="glyphicon glyphicon-arrow-down"></span>
+                <p th:text="${details.toName}"></p>
+                <span class="text-muted" th:text="${#dates.format(details.issueAssignedOn, 'dd-MM-yyyy HH:mm')}"></span>
+
+            </div>
+                <p th:if="${assigningDetails.isEmpty()}" class="text-muted text-center">No Assignments</p>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+$('.selectpicker').selectpicker({
+
+  size: 6
+});
+/*]]>*/
+</script>
+
+</body>
+</html>

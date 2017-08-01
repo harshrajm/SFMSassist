@@ -98,6 +98,54 @@ public class IssueDetail implements Serializable {
 	@JsonProperty("issueTypeStr")
 	private String issueTypeStr;
 
+	@Transient
+	@JsonProperty("bankNameStr")
+	private String bankNameStr;
+
+	@Transient
+	@JsonProperty("isAssigned")
+	private boolean isAssigned;
+
+	@Transient
+	@JsonProperty("isYourTicket")
+	private boolean isYourTicket;
+
+	@Transient
+	@JsonProperty("isClosed")
+	private boolean isClosed;
+
+	public boolean isYourTicket() {
+		return isYourTicket;
+	}
+
+	public void setYourTicket(boolean yourTicket) {
+		isYourTicket = yourTicket;
+	}
+
+	public boolean isClosed() {
+		return isClosed;
+	}
+
+	public void setClosed(boolean closed) {
+		isClosed = closed;
+	}
+
+	public boolean isAssigned() {
+		return isAssigned;
+	}
+
+	public void setAssigned(boolean assigned) {
+		isAssigned = assigned;
+	}
+
+
+	public String getBankNameStr() {
+		return bankNameStr;
+	}
+
+	public void setBankNameStr(String bankNameStr) {
+		this.bankNameStr = bankNameStr;
+	}
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -298,5 +346,35 @@ public class IssueDetail implements Serializable {
 	@PreUpdate
 	void updatedAt() {
 		this.issueLastUpdate = new Date();
+	}
+
+
+	@Override
+	public String toString() {
+		return "IssueDetail{" +
+				"issueId=" + issueId +
+				", bankId=" + bankId +
+				", issueCategory=" + issueCategory +
+				", issueCurOwner=" + issueCurOwner +
+				", issueDesc='" + issueDesc + '\'' +
+				", issueLastUpdate=" + issueLastUpdate +
+				", issueLoggedBy=" + issueLoggedBy +
+				", issueLoggedOn=" + issueLoggedOn +
+				", issueResolvedBy=" + issueResolvedBy +
+				", issueResolvedOn=" + issueResolvedOn +
+				", issueSolution='" + issueSolution + '\'' +
+				", issueStatus=" + issueStatus +
+				", issueSubCategory=" + issueSubCategory +
+				", issueTitle='" + issueTitle + '\'' +
+				", issueType=" + issueType +
+				", issueUpdatedBy=" + issueUpdatedBy +
+				", issueVersion=" + issueVersion +
+				", sfmsVer=" + sfmsVer +
+				", ticketId='" + ticketId + '\'' +
+				", bankCodeStr='" + bankCodeStr + '\'' +
+				", issueCatStr='" + issueCatStr + '\'' +
+				", issueSubCatStr='" + issueSubCatStr + '\'' +
+				", issueTypeStr='" + issueTypeStr + '\'' +
+				'}';
 	}
 }

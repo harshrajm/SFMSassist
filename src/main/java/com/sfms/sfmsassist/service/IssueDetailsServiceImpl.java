@@ -1,12 +1,7 @@
 package com.sfms.sfmsassist.service;
-import com.sfms.sfmsassist.entities.BankDetail;
-import com.sfms.sfmsassist.entities.IssueCategory;
-import com.sfms.sfmsassist.entities.IssueDetail;
-import com.sfms.sfmsassist.entities.IssueSubCategory;
-import com.sfms.sfmsassist.repository.BankDetailRepository;
-import com.sfms.sfmsassist.repository.IssueCategoryRepository;
-import com.sfms.sfmsassist.repository.IssueDetailRepository;
-import com.sfms.sfmsassist.repository.IssueSubCategoryRepository;
+import com.sfms.sfmsassist.constants.Constants;
+import com.sfms.sfmsassist.entities.*;
+import com.sfms.sfmsassist.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +21,12 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     IssueSubCategoryRepository issueSubCategoryRepository;
     @Autowired
     IssueDetailRepository issueDetailRepository;
+    @Autowired
+    UserDetailsRepository userDetailsRepository;
+    @Autowired
+    AssigningDetailsRepository assigningDetailsRepository;
+
+
 
 
     @Override
@@ -131,5 +132,67 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     @Override
     public String getIssueSubCategory(Integer subCatId) {
         return issueSubCategoryRepository.getOne(Long.valueOf(subCatId)).getIssueSubCategoryDesc();
+    }
+
+    @Override
+    public IssueDetail getIssueById(long issueId) {
+        return issueDetailRepository.getOne(issueId);
+    }
+
+    @Override
+    public String getBankName(Integer bankId) {
+        return bankDetailRepository.getOne(Long.valueOf(bankId)).getBankName();
+    }
+
+    @Override
+    public List<UserDetail> getAllUsers() {
+        return userDetailsRepository.findAll();
+    }
+
+    @Override
+    public void assignIssue(long issueId, long fromId, long assignToId) {
+
+        AssigningDetail assigningDetail = new AssigningDetail();
+
+        assigningDetail.setIssueAssignedBy((int) fromId);
+        assigningDetail.setIssueAssignedTo((int) assignToId);
+        assigningDetail.setIssueId((int)issueId);
+        assigningDetail.setCreatedBy((int)fromId);
+
+        assigningDetailsRepository.save(assigningDetail);
+
+        IssueDetail issueDetail = issueDetailRepository.getOne(issueId);
+        issueDetail.setIssueCurOwner((int) assignToId);
+        issueDetail.setIssueUpdatedBy((int) fromId);
+
+        issueDetailRepository.save(issueDetail);
+
+    }
+
+    @Override
+    public void closeIssue(long issueId, String solution, long employeeId) {
+
+        IssueDetail issueDetail =  issueDetailRepository.getOne(issueId);
+
+        issueDetail.setIssueResolvedBy((int) employeeId);
+        issueDetail.setIssueResolvedOn(new Date());
+        issueDetail.setIssueStatus(Constants.ISSUE_STATUS_CLOSED);
+        issueDetail.setIssueUpdatedBy((int) employeeId);
+        issueDetail.setIssueSolution(solution);
+
+        issueDetailRepository.save(issueDetail);
+
+
+    }
+
+    @Override
+    public List<IssueDetail> getIdOfIssue(String ticketId) {
+        return issueDetailRepository.findByTicketId(ticketId);
+    }
+
+    @Override
+    public List<AssigningDetail> getAssigningDetailsByIssueId(int issueId) {
+        System.out.println("in servImp"+issueId);
+        return assigningDetailsRepository.findByIssueId(issueId);
     }
 }

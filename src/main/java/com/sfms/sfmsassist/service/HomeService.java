@@ -16,8 +16,10 @@ public interface HomeService {
 
     List<IssueDetail> getOpenProductionIssues();
 
-	List<IssueDetail> getLastFiftyIssue();
+    HashMap<String, Integer> getTrendingIssuesDetails();
 
-	HashMap<String, Integer> getTrendingIssuesDetails();
 
+    List<IssueDetail> getAllIssues(org.springframework.data.domain.Pageable pageable);
+
+    int getAllIssuesCount();
 }

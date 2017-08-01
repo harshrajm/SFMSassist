@@ -1,8 +1,6 @@
 package com.sfms.sfmsassist.service;
 
-import com.sfms.sfmsassist.entities.BankDetail;
-import com.sfms.sfmsassist.entities.IssueCategory;
-import com.sfms.sfmsassist.entities.IssueSubCategory;
+import com.sfms.sfmsassist.entities.*;
 
 import java.util.List;
 
@@ -32,4 +30,18 @@ public interface IssueDetailService {
     String getBankCode(Integer bankId);
     String getIssueCategory(Integer catId);
     String getIssueSubCategory(Integer subCatId);
+
+    IssueDetail getIssueById(long issueId);
+
+    String getBankName(Integer bankId);
+
+    List<UserDetail> getAllUsers();
+
+    void assignIssue(long issueId, long fromId, long assignTo);
+
+    void closeIssue(long issueId, String solution, long employeeId);
+
+    List<IssueDetail> getIdOfIssue(String ticketId);
+
+    List<AssigningDetail> getAssigningDetailsByIssueId(int issueId);
 }

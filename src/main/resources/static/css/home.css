@@ -1,0 +1,27 @@
+    body{
+background-color:#f5f7f8;
+}
+
+		.padding-0{
+    padding-right:0;
+    padding-left:0;
+    }
+ .w3-card{
+ background-color:white;
+ }
+
+ .homeBtn{
+ background-color:#90A4AE;
+ }
+
+ .issueCard{
+ padding-top:5px;padding-bottom:7px;
+ }
+
+ .issueCard:hover {
+   box-shadow:0 5px 10px 0 rgba(0,0,0,0.16),0 5px 15px 0 rgba(0,0,0,0.12);
+}
+
+a {
+color: inherit;
+}

@@ -12,4 +12,5 @@ public interface IssueSubCategoryRepository extends JpaRepository<IssueSubCatego
 
     List<IssueSubCategory> findByIssueCategoryId(int issueCategoryId);
 
+
 }
