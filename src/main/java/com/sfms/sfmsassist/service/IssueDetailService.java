@@ -44,4 +44,12 @@ public interface IssueDetailService {
     List<IssueDetail> getIdOfIssue(String ticketId);
 
     List<AssigningDetail> getAssigningDetailsByIssueId(int issueId);
+
+    List<IssueDetail> findByIssueTypeAndIssueStatus(int uatOrProd, int pendOrClosed);
+
+    List<IssueDetail> findByIssueStatus(int pendOrClosed);
+
+    List<IssueDetail> findByIssueType(int uatOrProd);
+
+    List<IssueDetail> getAllIssues();
 }

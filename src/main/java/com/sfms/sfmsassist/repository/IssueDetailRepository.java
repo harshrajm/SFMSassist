@@ -23,6 +23,10 @@ public interface IssueDetailRepository extends JpaRepository<IssueDetail,Long> {
 
     List<IssueDetail> findAllByOrderByIssueIdDesc(org.springframework.data.domain.Pageable pageable);
 
+    List<IssueDetail> findByIssueStatus(int uatOrProd);
+
+    List<IssueDetail> findByIssueType(int openOrClosed);
+
 
 
 }

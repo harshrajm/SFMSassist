@@ -100,7 +100,7 @@ public class HomeController {
     public String allIssues(Model model){
 
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "issueId"));
-        Pageable pageable = new PageRequest(0, 5, sort);
+        Pageable pageable = new PageRequest(0, 10, sort);
         List<IssueDetail> issueDetails = homeService.getAllIssues(pageable);
 
         issueDetails = addStringNames(issueDetails,"allIssues");

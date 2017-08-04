@@ -74,23 +74,37 @@ background-color:#37474F;
 <div class="container-fluid" style="padding-bottom:10px;">
         <!--{{ctrl.xyz}}
     {{ctrl.pageCnt}}-->
-    {{ctrl.yourTickets}}
+    <!--{{ctrl.yourTickets}}
+    uat : {{ctrl.uat}}
+    prod : {{ctrl.prod}}
+    pend : {{ctrl.pend}}
+    closed : {{ctrl.closed}}
+    yrTkt : {{ctrl.yrTkt}}
+    uat or prod radio : {{ctrl.uatOrProd}}
+    closed or pend : {{ctrl.pendOrClosed}}-->
     <div class="row" style="margin-top:20px;">
         <div class="col-sm-2">
 
-            <div class="w3-panel w3-card" style="margin-top:150px;padding-bottom:10px;">
-
+            <div class="w3-panel w3-card" style="margin-top:150px;padding-bottom:8px;width:15%; background-color: white;float:left;margin-right:5px;
+    min-height:50px;
+    position:fixed;">
+                <form name="theForm">
                 <h4 class="text-center">Filter List</h4>
                 <hr/>
-                <input type="checkbox"/> UAT <br/>
-                <input type="checkbox"/> Production<br/>
+                <input type="radio" ng-model="ctrl.uatOrProd" data-ng-value="1"/> UAT <br/>
+                <input type="radio" ng-model="ctrl.uatOrProd" data-ng-value="2"/> Production<br/>
                 <hr/>
-                <input type="checkbox"/> Pending<br/>
-                <input type="checkbox"/> Closed <br/>
+                <input type="radio" ng-model="ctrl.pendOrClosed" data-ng-value="1"/> Pending<br/>
+                <input type="radio" ng-model="ctrl.pendOrClosed" data-ng-value="2"/> Closed <br/>
                 <hr/>
-                <input type="checkbox" ng-model="ctrl.yourTickets" ng-click="ctrl.checkBxClk()"/> Your Tickets
+                <input type="checkbox" ng-model="ctrl.yrTkt" /> Your Issues
+                <br/><br/>
+                <button ng-disabled="!theForm.$dirty" type="button" ng-click="ctrl.applyFilter()" class="btn btn-primary btn-block">Apply</button>
+                </form>
 
-
+                <a href="/allIssues">
+                    <button style="margin-top:8px;" ng-if="ctrl.filterDataLoaded" type="button"  class="btn btn-default btn-block">Reset</button>
+                </a>
             </div>
 
         </div>
@@ -102,7 +116,10 @@ background-color:#37474F;
                 <br/>
             </div>
 
-            <span class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
+
+
+            <span ng-hide="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
+            <span ng-show="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} filterd Issue(s) </span>
 
             <div ng-repeat="issue in ctrl.result | filter:query as filtered " >
 
@@ -130,11 +147,11 @@ background-color:#37474F;
                 </a>
 
             </div>
-            <span class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
-
-            <button id="loadBtn" ng-show="ctrl.loadMoreBtnVisible" ng-click="ctrl.loadMore()" class="btn btn-default btn-block" style="margin-top:10px;">{{ctrl.buttonTxt}} </button>
-
+            <span ng-hide="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
+            <span ng-show="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} filterd Issue(s) </span>
+            <button ng-hide="ctrl.filterDataLoaded" id="loadBtn" ng-show="ctrl.loadMoreBtnVisible" ng-click="ctrl.loadMore()" class="btn btn-default btn-block" style="margin-top:10px;">{{ctrl.buttonTxt}} </button>
         </div>
+
         <div class="col-sm-2"></div>
     </div>
 
@@ -142,7 +159,6 @@ background-color:#37474F;
 </div>
 
 
-
-{{ctrl.pageCnt}}
+<!--{{ctrl.pageCnt}}-->
 </body>
 </html>

@@ -195,4 +195,24 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
         System.out.println("in servImp"+issueId);
         return assigningDetailsRepository.findByIssueId(issueId);
     }
+
+    @Override
+    public List<IssueDetail> findByIssueTypeAndIssueStatus(int uatOrProd, int pendOrClosed) {
+        return issueDetailRepository.findByIssueTypeAndIssueStatus(uatOrProd,pendOrClosed);
+    }
+
+    @Override
+    public List<IssueDetail> findByIssueStatus(int pendOrClosed) {
+        return issueDetailRepository.findByIssueStatus(pendOrClosed);
+    }
+
+    @Override
+    public List<IssueDetail> findByIssueType(int uatOrProd) {
+        return issueDetailRepository.findByIssueType( uatOrProd);
+    }
+
+    @Override
+    public List<IssueDetail> getAllIssues() {
+        return issueDetailRepository.findAll();
+    }
 }
