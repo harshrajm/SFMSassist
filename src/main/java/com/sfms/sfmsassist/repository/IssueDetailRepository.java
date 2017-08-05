@@ -27,6 +27,8 @@ public interface IssueDetailRepository extends JpaRepository<IssueDetail,Long> {
 
     List<IssueDetail> findByIssueType(int openOrClosed);
 
+    List<IssueDetail> findByIssueDescContainingIgnoreCaseOrIssueSolutionContainingIgnoreCaseOrIssueTitleContainingIgnoreCase(String str1,String str2,String str3);
+
 
 
 }

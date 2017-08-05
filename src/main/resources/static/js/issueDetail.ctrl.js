@@ -1,6 +1,6 @@
 
 
-var app = angular.module("myApp",[]);
+var app = angular.module("myApp",['angular-loading-bar', 'ngAnimate']);
 
 app.controller("Ctrl",Ctrl);
 

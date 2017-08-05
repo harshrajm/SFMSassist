@@ -1,11 +1,13 @@
 
 
-var app = angular.module("myApp",[]);
+var app = angular.module("myApp",['angular-loading-bar', 'ngAnimate']);
 
 
 app.controller("Ctrl",Ctrl);
 
 function Ctrl(IssueDetailserv){
+
+
 
 this.xyz="from controller";
 
@@ -31,7 +33,8 @@ var self = this;
      //alert("in else");
         IssueDetailserv.applyFilterAndLoad(this.uatOrProd,this.pendOrClosed,this.yrTkt)
             .then(function(data){
-            	console.log(data);
+
+
                 self.filterDataLoaded = true;
             	self.result.length = 0;
             	self.result = data;
@@ -54,8 +57,11 @@ IssueDetailserv.getMoreIssues(this.pageCnt)
 .then(function(data){
 	console.log(data);
 
+
+
+
+
 	if(data.length<10){
-	//alert("data length < 5");
 	self.loadMoreBtnVisible = false;
 	}
 	self.result =self.result.concat(data);

@@ -215,4 +215,9 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     public List<IssueDetail> getAllIssues() {
         return issueDetailRepository.findAll();
     }
+
+    @Override
+    public List<IssueDetail> searchAllIssuesByKeyword(String searchQuery) {
+        return issueDetailRepository.findByIssueDescContainingIgnoreCaseOrIssueSolutionContainingIgnoreCaseOrIssueTitleContainingIgnoreCase(searchQuery,searchQuery,searchQuery);
+    }
 }

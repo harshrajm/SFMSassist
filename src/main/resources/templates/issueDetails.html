@@ -20,10 +20,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
 
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/issueDetails.css}"/>
+    <!--loading bar-->
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 
-
-
-
+    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
+    <title>Add Issue | SFMS Assist</title>
     <style>
 
 
@@ -31,9 +34,25 @@
 
 </head>
 <body>
+
+<div class="w3-bar w3-border w3-white">
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+
+    <div class="w3-dropdown-hover">
+        <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
+            <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
+            <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
+            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
+        </div>
+    </div>
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+</div>
 <div class="container-fluid" ng-controller="Ctrl as ctrl">
 
-    <div class="row" style="margin-top:20px;">
+    <div class="row" >
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
 
@@ -175,6 +194,11 @@ $('.selectpicker').selectpicker({
 
   size: 6
 });
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 /*]]>*/
 </script>
 

@@ -18,8 +18,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css"/>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
-
-
+    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
+    <title>View Issue | SFMS Assist</title>
     <style>
 input.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched{
 border: 1px solid red;
@@ -53,10 +53,26 @@ padding-right:20px;padding-left:20px;padding-bottom:25px;
 
 </head>
 <body ng-controller="Ctrl as ctrl">
-<h2>{{ctrl.xyz}}</h2>
+
+<div class="w3-bar w3-border w3-white">
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+
+    <div class="w3-dropdown-hover">
+        <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
+            <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
+            <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
+            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
+        </div>
+    </div>
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+</div>
+<!--<h2>{{ctrl.xyz}}</h2>-->
 <div class="container-fluid">
 
-    <div class="row" style="margin-top:20px;">
+    <div class="row" >
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
 

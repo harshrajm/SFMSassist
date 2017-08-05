@@ -205,4 +205,10 @@ public class IssueController {
 
         return "redirect:/showIssueDetails/"+issueDetailList.get(0).getIssueId();
     }
+
+    @RequestMapping("/searchIssues")
+    public String searchIssues(){
+
+        return "searchIssues";
+    }
 }

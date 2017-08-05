@@ -17,45 +17,52 @@
 
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/home.css}"/>
 
-    <title>Home</title>
+    <title>Home | SFMS Assist</title>
+    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
+ <style type="text/css">
 
-  <!--  <style type="text/css">
 
-    body{
-background-color:#f5f7f8;
+.navbar {
+
+  margin-bottom: 0px;
+
 }
 
-		.padding-0{
-    padding-right:0;
-    padding-left:0;
-    }
- .w3-card{
- background-color:white;
- }
-
- .homeBtn{
- background-color:#90A4AE;
- }
-
- .issueCard{
- padding-top:5px;padding-bottom:7px;
- }
-
- .issueCard:hover {
-   box-shadow:0 5px 10px 0 rgba(0,0,0,0.16),0 5px 15px 0 rgba(0,0,0,0.12);
+.alert{
+margin-top:5px;
 }
-
-a {
-color: inherit;
-}
-
-
-
-    </style>-->
+    </style>
 
 </head>
 <body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${myOpenIssues}">
+<!--<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header" >
+            <a class="navbar-brand" href="/home">SFMS ASSIST</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/home">Home</a></li>
+            &lt;!&ndash;<li><a href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a></li>&ndash;&gt;
+        </ul>
+    </div>
+</nav>-->
+<!--<div class="w3-bar w3-border w3-light-grey">
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button w3-grey"><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+    <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
+    <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
+
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right ">Logout</a>
+</div>-->
+
 <div class="container-fluid">
+
+
     <div class="row">
         <!-- result: {{ctrl.result}}-->
 
@@ -79,9 +86,9 @@ color: inherit;
                        style="text-decoration:none;"><i class="glyphicon glyphicon-th-list"></i>&nbsp; All Issues
                     </a>
 
-                    <button id="searchIssues" class="homeBtn w3-button w3-block w3-left-align"><i
+                    <a href="/searchIssues" id="searchIssues" class="homeBtn w3-button w3-block w3-left-align" style="text-decoration:none;"><i
                             class="glyphicon glyphicon-search"></i>&nbsp; Search Issues Repository
-                    </button>
+                    </a>
 
                     <button id="provideClassFile" class="homeBtn w3-button w3-block  w3-left-align"><i
                             class="glyphicon glyphicon-folder-close"></i>&nbsp; Provide Class File
@@ -107,25 +114,25 @@ color: inherit;
 
             </div>
         </div>
-        <div class="col-sm-6  padding-0" style="padding-top:5px;">
+        <div class="col-sm-6  padding-0" style="">
 
             <div th:if="${issueAssigned} == true" class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Assigned
             </div>
-            <div th:if="${ticketIdAlreadyPresent} == true" class="alert alert-danger alert-dismissable">
+            <div  th:if="${ticketIdAlreadyPresent} == true" class="alert alert-danger alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Ticket ID</strong> already present
             </div>
-            <div th:if="${issueInsertedAndClosed} == true" class="alert alert-success alert-dismissable">
+            <div  th:if="${issueInsertedAndClosed} == true" class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Inserted And Closed!
             </div>
-            <div th:if="${issueInserted} == true" class="alert alert-info alert-dismissable">
+            <div  th:if="${issueInserted} == true" class="alert alert-info alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Inserted!
             </div>
-            <div th:if="${issueClosed} == true" class="alert alert-success alert-dismissable">
+            <div  th:if="${issueClosed} == true" class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Closed!
             </div>

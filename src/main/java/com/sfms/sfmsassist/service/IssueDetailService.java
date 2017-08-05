@@ -52,4 +52,6 @@ public interface IssueDetailService {
     List<IssueDetail> findByIssueType(int uatOrProd);
 
     List<IssueDetail> getAllIssues();
+
+    List<IssueDetail> searchAllIssuesByKeyword(String searchQuery);
 }

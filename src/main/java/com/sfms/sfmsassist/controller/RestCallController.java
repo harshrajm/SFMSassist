@@ -24,6 +24,8 @@ import java.util.List;
 @RestController
 public class RestCallController {
 
+
+
     @Autowired
     HomeController homeController;
     @Autowired
@@ -31,6 +33,8 @@ public class RestCallController {
 
     @Autowired
     IssueDetailService issueDetailService;
+
+
 
     @RequestMapping("/getAllIssueCategory")
     public List<IssueCategory> getAllCategories(){
@@ -103,6 +107,31 @@ public class RestCallController {
                 }
             }
         }
+
+        return issueDetails;
+    }
+
+
+    @RequestMapping("/searchIssuesRestCall/{searchQuery}")
+    public List<IssueDetail> searchIssuesRestCall(@PathVariable String searchQuery){
+        System.out.println(searchQuery);
+
+        List<IssueDetail> issueDetails = null;
+
+
+        issueDetails = issueDetailService.searchAllIssuesByKeyword(searchQuery);
+
+        /*for (Iterator<IssueDetail> iterator = issueDetails.iterator(); iterator.hasNext(); ) {
+            IssueDetail issueDetail = iterator.next();
+            if(issueDetail.isClosed() == true){
+                iterator.remove();
+            }
+        }*/
+
+        String json = new Gson().toJson(issueDetails);
+        System.out.println(json);
+
+        issueDetails = homeController.addStringNames(issueDetails,"allIssues");
 
         return issueDetails;
     }

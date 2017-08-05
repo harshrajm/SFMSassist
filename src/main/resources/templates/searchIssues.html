@@ -5,7 +5,7 @@
 
 
     <script th:src="@{js/angular/angular.js}"></script>
-    <script th:src="@{js/allIssues.ctrl.js}"></script>
+    <script th:src="@{js/searchIssues.ctrl.js}"></script>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -19,16 +19,11 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
 
-    <!--<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/issueDetails.css}"/>-->
-
-
-    <!--<link rel='stylesheet' href='build/loading-bar.min.css' type='text/css' media='all' />
-    <script type='text/javascript' src='build/loading-bar.min.js'></script>-->
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
-
-
+    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
+    <title>Search Issues | SFMS Assist</title>
 
 
     <style>
@@ -96,12 +91,11 @@ background-color:#37474F;
 
 
     </style>
-    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
-    <title>All Issues | SFMS Assist</title>
-</head>
-<body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${allIssues}" >
 
-<div class="w3-bar w3-border w3-white" >
+</head>
+<body ng-controller="Ctrl as ctrl" >
+
+<div class="w3-bar w3-border w3-white">
     <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
     <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
@@ -122,41 +116,34 @@ background-color:#37474F;
     <div class="row" >
         <div class="col-sm-2">
 
-            <div class="w3-panel w3-card" style="margin-top:100px;padding-bottom:8px;width:15%; background-color: white;float:left;margin-right:5px;
-    min-height:50px;
-    position:fixed;">
-                <form name="theForm">
-                <h4 class="text-center">Filter List</h4>
-                <hr/>
-                <input type="radio" ng-model="ctrl.uatOrProd" data-ng-value="1"/> UAT <br/>
-                <input type="radio" ng-model="ctrl.uatOrProd" data-ng-value="2"/> Production<br/>
-                <hr/>
-                <input type="radio" ng-model="ctrl.pendOrClosed" data-ng-value="1"/> Pending<br/>
-                <input type="radio" ng-model="ctrl.pendOrClosed" data-ng-value="2"/> Closed <br/>
-                <hr/>
-                <input type="checkbox" ng-model="ctrl.yrTkt" /> Your Issues
-                <br/><br/>
-                <button ng-disabled="!theForm.$dirty" type="button" ng-click="ctrl.applyFilter()" class="btn btn-primary btn-block">Apply</button>
-                </form>
-
-                <a href="/allIssues">
-                    <button style="margin-top:8px;" ng-if="ctrl.filterDataLoaded" type="button"  class="btn btn-default btn-block">Reset</button>
-                </a>
-            </div>
 
         </div>
         <div class="col-sm-8">
 
-            <div class="w3-panel w3-card">
+
+                <div ng-if="ctrl.showJumbo" class="jumbotron" style="margin-top:10px;">
+
+                    <h1>Search Issues Repository</h1>
+                    <hr/>
+                    <span>Search All Issues : Pending/Closed</span><br/>
+                    <span>Search on any of the following fields: <li>Issue Title</li><li>Issue Description</li><li>Issue Solution</li> </span>
+                </div>
+
+
+
+            <div  class="w3-panel w3-card vertical-center" >
                 <br/>
-                <input type="text" class="form-control" placeholder="Search All Issues (eg. UAT/Production/ticket ID/Bank code etc.)" ng-model="query"/>
+
+
+                        <input ng-model="ctrl.query" ng-keyup ="ctrl.loadData()" name="ticketId" type="text" class="form-control" placeholder="Search here"/>
+
+
                 <br/>
             </div>
 
 
-
-            <span ng-hide="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
-            <span ng-show="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} filterd Issue(s) </span>
+            <div ng-if="ctrl.makeListVisible">
+            <span class="text-muted">Currently showing {{filtered.length}} Issue(s) </span>
 
             <div class="item" ng-repeat="issue in ctrl.result | filter:query as filtered " md-highlight-text="query" >
 
@@ -175,8 +162,13 @@ background-color:#37474F;
                         <span class="pull-right text-muted">{{issue.issueLoggedOn | date: 'medium'}}</span>
                         <h4>{{issue.issueTitle}}</h4>
                         <p>{{issue.issueDesc}}</p>
+                        <span ng-if="issue.isClosed">
+                            <strong>Solution:</strong> {{issue.issueSolution}}
+                            <br/>
+                        </span>
                         <span class="label label-primary">{{issue.issueCatStr}}</span>
                         <span class="label label-info">{{issue.issueSubCatStr}}</span>
+
                         <span ng-show="issue.issueTypeStr == 'Production'" class="pull-right label label-danger">Production</span>
                         <span ng-show="issue.issueTypeStr == 'UAT'" class="pull-right label label-warning">UAT</span>
 
@@ -184,9 +176,8 @@ background-color:#37474F;
                 </a>
 
             </div>
-            <span ng-hide="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} Issue(s) of <span th:text="${totalNoOfIssues}"></span> issues logged by Team </span>
-            <span ng-show="ctrl.filterDataLoaded" class="text-muted">Currently showing {{filtered.length}} filterd Issue(s) </span>
-            <button ng-hide="ctrl.filterDataLoaded " id="loadBtn" ng-show="ctrl.loadMoreBtnVisible" ng-click="ctrl.loadMore()" class="btn btn-default btn-block" style="margin-top:10px;">{{ctrl.buttonTxt}} </button>
+
+            </div>
         </div>
 
         <div class="col-sm-2"></div>
@@ -204,6 +195,6 @@ $(document).ready(function(){
 /*]]>*/
 </script>
 
-<!--{{ctrl.pageCnt}}-->
+
 </body>
 </html>
