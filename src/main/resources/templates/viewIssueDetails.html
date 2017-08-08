@@ -55,7 +55,7 @@ padding-right:20px;padding-left:20px;padding-bottom:25px;
 <body ng-controller="Ctrl as ctrl">
 
 <div class="w3-bar w3-border w3-white">
-    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;"  class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
     <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
     <div class="w3-dropdown-hover">
@@ -64,10 +64,9 @@ padding-right:20px;padding-left:20px;padding-bottom:25px;
             <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
             <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
             <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
-            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
-        </div>
+            <a style="text-decoration:none;" href="/generateReport" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Generate Report</a>        </div>
     </div>
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+    <a style="text-decoration:none;"  th:href="@{/logout}"  class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
 </div>
 <!--<h2>{{ctrl.xyz}}</h2>-->
 <div class="container-fluid">

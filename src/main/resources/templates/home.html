@@ -18,62 +18,22 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/home.css}"/>
 
     <title>Home | SFMS Assist</title>
-    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
- <style type="text/css">
+    <link rel="icon" type="image/gif/png"
+          href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
 
-
-.navbar {
-
-  margin-bottom: 0px;
-
-}
-
-.alert{
-margin-top:5px;
-}
-    </style>
 
 </head>
 <body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${myOpenIssues}">
 <div class="w3-bar w3-border w3-white">
-    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
-    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button w3-blue-grey"><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+    <a style="text-decoration:none;"  class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS
+        Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button w3-blue-grey"><span
+            class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
-    <!--<div class="w3-dropdown-hover">
-        <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
-        <div class="w3-dropdown-content w3-bar-block w3-card-4">
-            <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
-            <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
-            <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
-            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
-        </div>
-    </div>-->
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+    <a style="text-decoration:none;"  th:href="@{/logout}" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip"
+       data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
 </div>
-<!--<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header" >
-            <a class="navbar-brand" href="/home">SFMS ASSIST</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/home">Home</a></li>
-            &lt;!&ndash;<li><a href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a></li>&ndash;&gt;
-        </ul>
-    </div>
-</nav>-->
-<!--<div class="w3-bar w3-border w3-light-grey">
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button w3-grey"><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
-    <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
-    <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
 
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right ">Logout</a>
-</div>-->
 
 <div class="container-fluid">
 
@@ -101,28 +61,26 @@ margin-top:5px;
                        style="text-decoration:none;"><i class="glyphicon glyphicon-th-list"></i>&nbsp; All Issues
                     </a>
 
-                    <a href="/searchIssues" id="searchIssues" class="homeBtn w3-button w3-block w3-left-align" style="text-decoration:none;"><i
+                    <a href="/searchIssues" id="searchIssues" class="homeBtn w3-button w3-block w3-left-align"
+                       style="text-decoration:none;"><i
                             class="glyphicon glyphicon-search"></i>&nbsp; Search Issues Repository
                     </a>
 
-                   <!-- <button  id="provideClassFile" class="homeBtn w3-button w3-block  w3-left-align"><i
-                            class="glyphicon glyphicon-folder-close"></i>&nbsp; Provide Class File
-                    </button>-->
-
-                    <a href="/generateReport" id="generateReport" class="homeBtn w3-button w3-block w3-left-align" style="text-decoration:none;"><i
+                    <a href="/generateReport" id="generateReport" class="homeBtn w3-button w3-block w3-left-align"
+                       style="text-decoration:none;"><i
                             class="glyphicon glyphicon-list-alt"></i>&nbsp; Generate Report
                     </a>
 
-                    <!--<button id="allItems" class="homeBtn w3-button w3-block  w3-left-align"><i class="glyphicon glyphicon-list-alt"></i>&nbsp; All Items</button>-->
                 </div>
             </div>
 
             <div class="w3-panel w3-card text-center" style="padding-bottom:10px;">
                 <h4>Go to Issue</h4>
-                <!--<input class="form-control" placeholder="Enter Ticket ID (eg.SD2017144450)"/>-->
                 <form action="/findIssueByTktId" method="post">
                     <div class="input-group">
-                        <input data-toggle="tooltip" data-placement="bottom" title="Enter Ticket ID" name="ticketId" type="text" class="form-control" placeholder="Enter Ticket ID(eg.SD2017144450)"/>
+                        <input data-toggle="tooltip" data-placement="bottom" title="Enter Ticket ID" name="ticketId"
+                               type="text" class="form-control" placeholder="Enter Ticket ID(eg.SD2017144450)"/>
+                        <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
@@ -139,23 +97,23 @@ margin-top:5px;
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Assigned
             </div>
-            <div  th:if="${ticketIdAlreadyPresent} == true" class="alert alert-danger alert-dismissable">
+            <div th:if="${ticketIdAlreadyPresent} == true" class="alert alert-danger alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Ticket ID</strong> already present
             </div>
-            <div  th:if="${issueInsertedAndClosed} == true" class="alert alert-success alert-dismissable">
+            <div th:if="${issueInsertedAndClosed} == true" class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Inserted And Closed!
             </div>
-            <div  th:if="${issueInserted} == true" class="alert alert-info alert-dismissable">
+            <div th:if="${issueInserted} == true" class="alert alert-info alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Inserted!
             </div>
-            <div  th:if="${issueClosed} == true" class="alert alert-success alert-dismissable">
+            <div th:if="${issueClosed} == true" class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 Issue Closed!
             </div>
-            <div  th:if="${noIssueToDisplay} == true" class="alert alert-danger alert-dismissable">
+            <div th:if="${noIssueToDisplay} == true" class="alert alert-danger alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 No Issues to display!
             </div>
@@ -163,7 +121,8 @@ margin-top:5px;
 
             <div class="w3-panel w3-card">
                 <br/>
-                <input data-toggle="tooltip" data-placement="bottom" title="Search the list below" name="ticketId" type="text" class="form-control" placeholder="Search Your Issues" ng-model="query"/>
+                <input data-toggle="tooltip" data-placement="bottom" title="Search the list below" name="ticketId"
+                       type="text" class="form-control" placeholder="Search Your Issues" ng-model="query"/>
                 <br/>
             </div>
 
@@ -176,7 +135,6 @@ margin-top:5px;
                     <div class="w3-panel w3-card issueCard">
                         <span class="label label-default">{{issue.ticketId}}</span>
                         <span class="label label-default">{{issue.bankCodeStr}}</span>
-                        <!--{{issue.isAssigned}}-->
                         <span class="label label-success" ng-show="issue.isAssigned">Assigned to you</span>
                         <span class="pull-right text-muted">{{issue.issueLoggedOn}}</span>
                         <h4>{{issue.issueTitle}}</h4>
@@ -196,12 +154,10 @@ margin-top:5px;
 
                 <div class="jumbotron">
                     <h1>Nothing To display</h1>
-                    <p>Start By <strong><a href="/addIssueDetails"><span class="glyphicon glyphicon-plus"></span> Adding few Issues</a></strong>!</p>
+                    <p>Start By <strong><a href="/addIssueDetails"><span class="glyphicon glyphicon-plus"></span> Adding
+                        few Issues</a></strong>!</p>
                 </div>
             </div>
-
-
-
 
 
         </div>
@@ -217,21 +173,20 @@ margin-top:5px;
             </div>
 
             <div class="w3-panel w3-card text-center">
-                <!--<span class="glyphicon glyphicon-fire"></span>-->
-                <!--<img src="https://media.giphy.com/media/12S4Jf0IZo34Sk/giphy.gif" alt="on Fire!" style="width:30px;height:30px;"/>-->
                 <h4 class="text-center align-middle">Trending Issues</h4>
 
-                <div style="padding-bottom:5px;padding-right:40px;" class="text-center" th:each="issue : ${trendingIssues}">
+                <div style="padding-bottom:5px;padding-right:40px;" class="text-center"
+                     th:each="issue : ${trendingIssues}">
                     <div class="row">
 
-                        <div class="col-sm-2">
-                        </div>
+                        <!--<div class="col-md-2">
+                        </div>-->
 
-                        <div class="col-sm-8">
-                            <span class=" pull-left" style="margin-top:2px;" th:text="${issue.key}">  FBAPI100</span>
+                        <div class="col-md-10">
+                            <span  style="margin-top:2px;" th:text="${issue.key}">  FBAPI100</span>
                         </div>
-                        <div class="col-sm-2">
-                            <span  class="badge pull-right" th:text="${issue.value}">1</span><br/>
+                        <div class="col-md-2">
+                            <span class="badge" th:text="${issue.value}">1</span><br/>
                         </div>
 
                     </div>
@@ -245,7 +200,6 @@ margin-top:5px;
         </div>
 
 
-
     </div>
 </div>
 
@@ -257,6 +211,7 @@ $(document).ready(function(){
 });
 
 /*]]>*/
+
 </script>
 
 </body>

@@ -29,6 +29,12 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     @Autowired
     AssigningDetailsRepository assigningDetailsRepository;
 
+    @Autowired
+    IssueStatusRepository issueStatusRepository;
+
+
+    @Autowired
+    UserService userService;
 
 
 
@@ -239,40 +245,63 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     public List<Map<String, String>> getIssueDetails(Date fDate, Date tDate) {
 
 
-        List<IssueDetail> data=new ArrayList<>();
-        data= issueDetailRepository.findByIssueLoggedOnBetween(fDate,tDate);
+
+
+        List<IssueDetail> data = new ArrayList<>();
+        data = issueDetailRepository.findByIssueLoggedOnBetween(fDate, tDate);
         List<Map<String, String>> listTrans = new ArrayList<>();
 
         for (IssueDetail report : data) {
 
-            if(report.getIssueStatus()==2)
-            {
+            if (report.getIssueStatus() == 2) {
 
-                DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
 
                 Map<String, String> transMap = new HashMap<>();
 
                 transMap.put("ticketId", report.getTicketId());
-                transMap.put("date",report.getIssueLoggedOn().toString() );
+                transMap.put("date", report.getIssueLoggedOn().toString());
+                // System.out.println(Month.of(report.getIssueLoggedOn().getMonth()).name());
+                transMap.put("dateMonth", new SimpleDateFormat("MMMM").format(report.getIssueLoggedOn()));
+                System.out.println(new SimpleDateFormat("MMMM").format(report.getIssueLoggedOn()) + "ddaaaaattteee");
 
                 transMap.put("issueLoggedTime", report.getIssueLoggedOn().toString());
+                transMap.put("callMode", "By EMS");
 
-                transMap.put("rootCause",getIssueSubCategory(report.getIssueSubCategory())+" issue in "+ getIssueCategory(report.getIssueCategory()));
+                transMap.put("rootCause", getIssueSubCategory(report.getIssueSubCategory()) + " issue in "
+                        + getIssueCategory(report.getIssueCategory()));
 
-                transMap.put("subCat", report.getIssueDesc());
+                transMap.put("module", getIssueCategory(report.getIssueCategory()));
 
-                transMap.put("ownerName","Mahideep");
+                transMap.put("title", report.getIssueTitle());
+                transMap.put("status", getStatus(new Long(report.getIssueStatus())));
+                transMap.put("ownerName", userService.getUserByEmpId(report.getIssueResolvedBy()).getFirstName()
+                        +" "+userService.getUserByEmpId(report.getIssueResolvedBy()).getLastName());
 
-                transMap.put("bank",getBankNames( report.getBankId()));
+                transMap.put("bank", getBankNames(report.getBankId()));
 
                 transMap.put("solution", report.getIssueSolution());
 
-			/*if(df2.format(report.getIssueResolvedOn())!=null)
-			transMap.put("resolvedOn", df2.format(report.getIssueResolvedOn()));
+                transMap.put("resolvedOn", formatter.format(report.getIssueResolvedOn()));
 
-			if(df2.format(report.getIssueResolvedOn())!=null)
-			transMap.put("resolvedOnDate", df2.format(report.getIssueResolvedOn()));*/
+                transMap.put("resolvedOnDate", localDateFormat.format(report.getIssueResolvedOn()));
 
+
+                long second = 1000l;
+                long minute = 60l * second;
+                long hour = 60l * minute;
+
+                long difference = report.getIssueResolvedOn().getTime() - report.getIssueLoggedOn().getTime();
+                System.out.println("--------------------------------------------");
+                System.out.print(String.format("%02d", difference / hour));
+                System.out.print(":");
+                System.out.print(String.format("%02d", (difference % hour) / minute));
+                System.out.print(":");
+                System.out.print(String.format("%02d", (difference % minute) / second));
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+
+                transMap.put("totalResolutionTime",String.format("%02d", difference / hour)+":"+String.format("%02d", (difference % hour) / minute)+":"+String.format("%02d", (difference % minute) / second));
 
 
                 listTrans.add(transMap);
@@ -281,6 +310,8 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
         }
 
         return listTrans;
+
+
 
     }
 
@@ -295,6 +326,9 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
         return bankDetailRepository.getOne(Long.valueOf(bankId)).getBankName();
     }
 
+    private String getStatus(Long issueStatus) {
 
+        return issueStatusRepository.getOne(Long.valueOf(issueStatus)).getIssueStatusDesc();
+    }
 
 }

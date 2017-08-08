@@ -40,10 +40,9 @@
             <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
             <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
             <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
-            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
-        </div>
+            <a style="text-decoration:none;" href="/generateReport" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Generate Report</a>        </div>
     </div>
-    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+    <a style="text-decoration:none;"  th:href="@{/logout}"  class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
 </div>
 <!--{{ctrl.xyz}}-->
 
@@ -107,8 +106,6 @@
 
 
 
-<!--
-<script th:src="@{js/reports.js}"></script>-->
 
 </body>
 </html>

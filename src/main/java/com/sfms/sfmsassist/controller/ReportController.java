@@ -19,53 +19,57 @@ import java.util.Map;
 
 @Controller
 public class ReportController {
-	
-	
+
+
 	@Autowired
 	IssueDetailService issueDetailService;
-	
-	 @RequestMapping("/generateReport")
-	    public String reports(Model model)
-	    {
-	    	
-	    	System.out.println("inside reports ");
-	    	
-	    	return "reports";
-	    }
 
-	 
+	@RequestMapping("/generateReport")
+	public String reports(Model model)
+	{
+
+		System.out.println("inside reports ");
+
+		return "reports";
+	}
+
+
 	@RequestMapping(value="/generateReports", method= RequestMethod.POST)
-public ModelAndView generateReports(@RequestParam("fDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date fDate,@RequestParam("tDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date tDate)
-{
-	System.out.println(fDate);
-	System.out.println(tDate);
-		
-	Map<String, Object> model = new HashMap<>();
-	
-	
-			
-	List<Map<String, String>> reportDetails;
-	 reportDetails = issueDetailService.getIssueDetails(fDate,tDate);
-	 String reportFormat="html";
-	 model.put("tDate", tDate);
+	public ModelAndView generateReports(@RequestParam("fDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date fDate,@RequestParam("tDate") @DateTimeFormat(pattern="yyyy-MM-dd"  ) Date tDate,@RequestParam("formatType") String reportFormat)
+	{
+		System.out.println(fDate);
+		System.out.println(tDate);
+		System.out.println(reportFormat);
+
+		Map<String, Object> model = new HashMap<>();
+
+		//String reportFormat="html";
+
+		List<Map<String, String>> reportDetails;
+		reportDetails = issueDetailService.getIssueDetails(fDate,tDate);
+
+		model.put("tDate", tDate);
 		model.put("fDate", fDate);
 
 		model.put("report", reportDetails);
-		System.out.println("!!1111");
 		model.put("reportformat", reportFormat);
-		model.put("format", "html");
-		System.out.println("222222222");
-		
+
 		for (Map<String,String> map : reportDetails) {
 			System.out.println(map);
 		}
-		
+
+		if ("excel".equals(reportFormat)) {
+			model.put("format", "xlsx");
+		} else if ("html".equals(reportFormat)) {
+			model.put("format", "html");
+
+
+
+
+
+		}
 		return new ModelAndView("weeklyReport", model);
-
-
-	
-}
-
+	}
 }
 
 
