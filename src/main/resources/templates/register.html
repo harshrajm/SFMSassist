@@ -48,6 +48,7 @@
                             <label>First Name:</label>
                             <input placeholder="First Name" type="text" class="form-control" th:field="*{fName}"
                                    ng-pattern="/^[a-zA-Z\s]*$/" name="fName" ng-required="true" ng-model="user.fName"/>
+                            <span class="error" ng-if="theForm.empId.$invalid &amp;&amp; theForm.empId.$touched ">Employee ID is invalid</span>
                             <br/>
 
                             <label>Last Name:</label>
@@ -97,7 +98,7 @@
 
                             <label>Alternate Mobile Number:</label>
                             <input placeholder="Alternate Mobile Number" type="text" class="form-control"
-                                   ng-pattern="/^[0-9]{1,8}$/" th:field="*{altMobile}" name="altMobile"
+                                   ng-pattern="/^[0-9]{1,10}$/" th:field="*{altMobile}" name="altMobile"
                                    ng-required="true" ng-model="user.altMobile"/>
                             <br/>
 

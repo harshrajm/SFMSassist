@@ -1,12 +1,15 @@
 package com.sfms.sfmsassist.service;
+
 import com.sfms.sfmsassist.constants.Constants;
 import com.sfms.sfmsassist.entities.*;
 import com.sfms.sfmsassist.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Administrator on 17-07-2017.
@@ -53,19 +56,22 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
 
     @Override
     public void insertIssueDetails(String ticketId, int bankId, int issueType, int sfmsVer, int selectedCat, int selectedSubCat, String title, String desc) {
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         IssueDetail issueDetail = new IssueDetail();
         //issueDetail.setIssueId(0L);
         issueDetail.setBankId(bankId);
         issueDetail.setIssueCategory(selectedCat);
-        issueDetail.setIssueCurOwner(1040218);
+        issueDetail.setIssueCurOwner((int) principal.getEmployeeId());
         issueDetail.setIssueDesc(desc);
         //issueDetail.setIssueLastUpdate(new Date());
-        issueDetail.setIssueLoggedBy(1040218);
+        issueDetail.setIssueLoggedBy((int) principal.getEmployeeId());
         //issueDetail.setIssueLoggedOn(new Date());
        //issueDetail.setIssueResolvedBy(0);
        // issueDetail.setIssueResolvedOn(new Date());
         //issueDetail.setIssueSolution("");
-        issueDetail.setIssueStatus(1);
+        issueDetail.setIssueStatus(Constants.ISSUE_STATUS_OPEN);
         issueDetail.setIssueSubCategory(selectedSubCat);
         issueDetail.setIssueTitle(title);
         issueDetail.setIssueType(issueType);
@@ -82,19 +88,22 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     @Override
     public void insertAndCloseIssueDetails(String ticketId, int bankId, int issueType, int sfmsVer, int selectedCat,
                                            int selectedSubCat, String title, String desc, String solution) {
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         IssueDetail issueDetail = new IssueDetail();
         //issueDetail.setIssueId(0L);
         issueDetail.setBankId(bankId);
         issueDetail.setIssueCategory(selectedCat);
-        issueDetail.setIssueCurOwner(1040218);
+        issueDetail.setIssueCurOwner((int) principal.getEmployeeId());
         issueDetail.setIssueDesc(desc);
         //issueDetail.setIssueLastUpdate(new Date());
-        issueDetail.setIssueLoggedBy(1040218);
+        issueDetail.setIssueLoggedBy((int) principal.getEmployeeId());
         //issueDetail.setIssueLoggedOn(new Date());
-        issueDetail.setIssueResolvedBy(1040218);
+        issueDetail.setIssueResolvedBy((int) principal.getEmployeeId());
         issueDetail.setIssueResolvedOn(new Date());
         issueDetail.setIssueSolution(solution);
-        issueDetail.setIssueStatus(2);
+        issueDetail.setIssueStatus(Constants.ISSUE_STATUS_CLOSED);
         issueDetail.setIssueSubCategory(selectedSubCat);
         issueDetail.setIssueTitle(title);
         issueDetail.setIssueType(issueType);
@@ -220,4 +229,72 @@ public class IssueDetailsServiceImpl implements IssueDetailService {
     public List<IssueDetail> searchAllIssuesByKeyword(String searchQuery) {
         return issueDetailRepository.findByIssueDescContainingIgnoreCaseOrIssueSolutionContainingIgnoreCaseOrIssueTitleContainingIgnoreCase(searchQuery,searchQuery,searchQuery);
     }
+
+   /* @Override
+    public List<Map<String, String>> getIssueDetails(Date fDate, Date tDate) {
+        return issueDetailRepository.findByIssueLoggedOnBetween(fDate,tDate);
+    }*/
+
+
+    public List<Map<String, String>> getIssueDetails(Date fDate, Date tDate) {
+
+
+        List<IssueDetail> data=new ArrayList<>();
+        data= issueDetailRepository.findByIssueLoggedOnBetween(fDate,tDate);
+        List<Map<String, String>> listTrans = new ArrayList<>();
+
+        for (IssueDetail report : data) {
+
+            if(report.getIssueStatus()==2)
+            {
+
+                DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+                Map<String, String> transMap = new HashMap<>();
+
+                transMap.put("ticketId", report.getTicketId());
+                transMap.put("date",report.getIssueLoggedOn().toString() );
+
+                transMap.put("issueLoggedTime", report.getIssueLoggedOn().toString());
+
+                transMap.put("rootCause",getIssueSubCategory(report.getIssueSubCategory())+" issue in "+ getIssueCategory(report.getIssueCategory()));
+
+                transMap.put("subCat", report.getIssueDesc());
+
+                transMap.put("ownerName","Mahideep");
+
+                transMap.put("bank",getBankNames( report.getBankId()));
+
+                transMap.put("solution", report.getIssueSolution());
+
+			/*if(df2.format(report.getIssueResolvedOn())!=null)
+			transMap.put("resolvedOn", df2.format(report.getIssueResolvedOn()));
+
+			if(df2.format(report.getIssueResolvedOn())!=null)
+			transMap.put("resolvedOnDate", df2.format(report.getIssueResolvedOn()));*/
+
+
+
+                listTrans.add(transMap);
+
+            }
+        }
+
+        return listTrans;
+
+    }
+
+    @Override
+    public List<IssueDetail> getIssueBetween(Date fDate, Date tDate) {
+        return issueDetailRepository.findByIssueLoggedOnBetween(fDate,tDate);
+    }
+
+    public String getBankNames(Integer bankId )
+    {
+
+        return bankDetailRepository.getOne(Long.valueOf(bankId)).getBankName();
+    }
+
+
+
 }

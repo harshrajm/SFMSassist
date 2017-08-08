@@ -55,8 +55,8 @@ padding-right:20px;padding-left:20px;padding-bottom:25px;
 <body ng-controller="Ctrl as ctrl">
 
 <div class="w3-bar w3-border w3-white">
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
     <div class="w3-dropdown-hover">
         <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -242,8 +242,16 @@ $('.selectpicker').selectpicker({
 
   size: 6
 });
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 /*]]>*/
 </script>
+
+
+
 
 </body>
 </html>

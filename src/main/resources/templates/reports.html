@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="myApp" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+
+    <script th:src="@{js/angular/angular.js}"></script>
+    <script th:src="@{js/reports.ctrl.js}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.4.0/typeit.min.js"></script>
+    <title>Reports | SFMS Assist</title>
+    <link rel="icon" type="image/gif/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Map-circle-grey.svg/768px-Map-circle-grey.svg.png"/>
+
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+
+
+
+
+</head>
+<body style="background-color:#f5f7f8;" ng-controller="Ctrl as ctrl">
+
+
+
+<div class="w3-bar w3-border w3-white">
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+
+    <div class="w3-dropdown-hover">
+        <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a style="text-decoration:none;" href="/addIssueDetails" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New Issue</a>
+            <a style="text-decoration:none;" href="/allIssues" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-th-list"></span>&nbsp; All Issues</a>
+            <a style="text-decoration:none;" href="/searchIssues" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-search"></span>&nbsp; Search Issues Repository</a>
+            <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-folder-close"></span>&nbsp; Provide Class File</a>
+        </div>
+    </div>
+    <a style="text-decoration:none;" href="#" class="w3-bar-item w3-button  w3-right " data-toggle="tooltip" data-placement="bottom" title="Logout"><span class="glyphicon glyphicon-log-out"></span> </a>
+</div>
+<!--{{ctrl.xyz}}-->
+
+
+
+
+<div class="row" >
+
+
+            <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+        
+        <div class="  w3-card" style="background-color:white;">
+            <div class="w3-panel " style="background-color:#607D8B;">
+                <h2 style="color:white;">Generate Reports</h2>
+            </div>
+
+
+            <div style="padding-top:20px;padding-right:20px;padding-left:20px;padding-bottom:25px;">
+            <form name="theForm" th:action="@{/generateReports}" method="POST" autocomplete="off"  >
+                <div class="form-group">
+                    <label for="fDate">Select from date:</label>
+                    <input ng-required="true" ng-model="issue.fDate"  placeholder="Select From Date" type="date" class="form-control" id="fDate" name="fDate"/>
+                </div>
+                <div class="form-group">
+                    <label for="tDate">Select To date:</label>
+                    <input ng-required="true" ng-model="issue.tDate"  placeholder="Select To Date" type="date" class="form-control" id="tDate" name="tDate"/>
+                </div>
+                <label for="tDate">Report Format:</label><br/>
+                <label class="radio-inline"><input ng-required="true" value="html" ng-model="issue.formatType" type="radio" name="formatType"/>HTML</label>
+                <label class="radio-inline"><input ng-required="true" value="excel" ng-model="issue.formatType" type="radio" name="formatType"/>EXCEL</label>
+<hr/>
+                <button ng-disabled="theForm.$invalid" type="submit" class="btn btn-primary">Generate</button>
+            </form>
+
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-4">
+
+            <!--<table datatable="ng" class="row-border hover">
+                <thead>
+                <tr>
+                    <th>ticketId</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="issue in ctrl.result">
+                    <td>{{ issue.ticketId }}</td>
+                    <td>{{ issue.issueTitle }}</td>
+                    <td>{{ issue.issueDesc }}</td>
+                </tr>
+                </tbody>
+            </table>-->
+
+        </div>
+    </div>
+
+
+
+
+<!--
+<script th:src="@{js/reports.js}"></script>-->
+
+</body>
+</html>

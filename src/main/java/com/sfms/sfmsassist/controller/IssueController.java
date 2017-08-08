@@ -9,6 +9,7 @@ import com.sfms.sfmsassist.service.HomeService;
 import com.sfms.sfmsassist.service.IssueDetailService;
 import com.sfms.sfmsassist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,7 +76,7 @@ public class IssueController {
 
             redirectAttributes.addFlashAttribute("ticketIdAlreadyPresent",true);
 
-            return "redirect:/home";
+            return "redirect:/";
 
         }else{
             System.out.println("ticket ID not present!!");
@@ -100,7 +101,7 @@ public class IssueController {
         }
 
 
-        return "redirect:/home";
+        return "redirect:/";
         }
     }
 
@@ -108,6 +109,8 @@ public class IssueController {
 
     @RequestMapping("/showIssueDetails/{issueId}")
     public String viewIssueDetails (@PathVariable long issueId, Model model){
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<UserDetail> userDetailsList = issueDetailService.getAllUsers();
 
@@ -151,10 +154,14 @@ public class IssueController {
             model.addAttribute("solution",issueDetail.getIssueSolution());
         }
         model.addAttribute("issueDetail",issueDetail);
-        System.out.println("enable assigning :"+((issueDetail.getIssueCurOwner() == 1040218)
-                && issueDetail.getIssueStatus()== Constants.ISSUE_STATUS_OPEN));
-        model.addAttribute("enableAssigning",((issueDetail.getIssueCurOwner() == 1040218)
-                && issueDetail.getIssueStatus()== Constants.ISSUE_STATUS_OPEN));
+        System.out.println("enable assigning :"+((issueDetail.getIssueCurOwner().equals(principal.getEmployeeId()))
+                && issueDetail.getIssueStatus() == Constants.ISSUE_STATUS_OPEN));
+
+        System.out.println("enable assigning :"+((issueDetail.getIssueCurOwner() == principal.getEmployeeId())
+                && issueDetail.getIssueStatus() == Constants.ISSUE_STATUS_OPEN));
+
+        model.addAttribute("enableAssigning",(issueDetail.getIssueCurOwner() == principal.getEmployeeId()
+                && issueDetail.getIssueStatus() == Constants.ISSUE_STATUS_OPEN));
 
         model.addAttribute("userDetails",userDetailsList);
         model.addAttribute("IssueCurOwnerName",userService.getUserByEmpId(issueDetail.getIssueCurOwner()).getFirstName()
@@ -162,39 +169,44 @@ public class IssueController {
         model.addAttribute("IssueOwnerName",userService.getUserByEmpId(issueDetail.getIssueLoggedBy()).getFirstName()
                 +" "+userService.getUserByEmpId(issueDetail.getIssueLoggedBy()).getLastName());
 
-        model.addAttribute("userEmpId",1040218);
+        model.addAttribute("userEmpId",principal.getEmployeeId());
 
         return "viewIssueDetails";
     }
 
     @RequestMapping(value ="/assignIssue" ,method = RequestMethod.POST)
     public String assignIssue(RedirectAttributes redirectAttributes,@RequestParam("assignTo") long assignToId,@RequestParam long issueId ){
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         System.out.println("in assignIssue");
         System.out.println(assignToId);
         System.out.println(issueId);
 
-        long fromId = 1040218;
+        long fromId = principal.getEmployeeId();
 
         issueDetailService.assignIssue(issueId,fromId,assignToId);
 
         redirectAttributes.addFlashAttribute("issueAssigned",true);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/closeIssue/{issueId}",method = RequestMethod.POST)
     public String closeIssue(@PathVariable long issueId,RedirectAttributes redirectAttributes,@RequestParam String solution){
 
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         System.out.println("solution :"+solution);
         System.out.println("issueId :"+issueId);
 
-        long employeeId =1040218;
+        long employeeId =principal.getEmployeeId();
 
         issueDetailService.closeIssue(issueId,solution,employeeId);
 
         redirectAttributes.addFlashAttribute("issueClosed",true);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/findIssueByTktId",method = RequestMethod.POST)

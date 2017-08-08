@@ -24,8 +24,11 @@ this.buttonTxt="Load More";
 this.filterDataLoaded = false;
 
 
+
 this.applyFilter = function(){
+
 var self = this;
+/*self.query = "";*/
     if(this.uatOrProd == undefined && this.pendOrClosed == undefined && this.yrTkt == false){
     alert("No filter selected!");
 

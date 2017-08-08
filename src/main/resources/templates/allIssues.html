@@ -102,8 +102,8 @@ background-color:#37474F;
 <body ng-controller="Ctrl as ctrl" th:attr="ng-init='ctrl.result ='+${allIssues}" >
 
 <div class="w3-bar w3-border w3-white" >
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
     <div class="w3-dropdown-hover">
         <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -149,7 +149,7 @@ background-color:#37474F;
 
             <div class="w3-panel w3-card">
                 <br/>
-                <input type="text" class="form-control" placeholder="Search All Issues (eg. UAT/Production/ticket ID/Bank code etc.)" ng-model="query"/>
+                <input data-toggle="tooltip" data-placement="bottom" title="Search the list below" type="text" class="form-control" placeholder="Search All Issues (eg. UAT/Production/ticket ID/Bank code etc.)" ng-model="query"/>
                 <br/>
             </div>
 

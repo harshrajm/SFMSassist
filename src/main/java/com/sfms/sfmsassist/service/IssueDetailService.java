@@ -2,7 +2,9 @@ package com.sfms.sfmsassist.service;
 
 import com.sfms.sfmsassist.entities.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 17-07-2017.
@@ -54,4 +56,8 @@ public interface IssueDetailService {
     List<IssueDetail> getAllIssues();
 
     List<IssueDetail> searchAllIssuesByKeyword(String searchQuery);
+
+    List<Map<String, String>> getIssueDetails(Date fDate, Date tDate);
+
+    List<IssueDetail> getIssueBetween(Date fDate, Date tDate);
 }

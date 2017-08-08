@@ -96,8 +96,8 @@ background-color:#37474F;
 <body ng-controller="Ctrl as ctrl" >
 
 <div class="w3-bar w3-border w3-white">
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
-    <a style="text-decoration:none;" href="/home" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button"><strong>&nbsp;&nbsp;SFMS Assist&nbsp;&nbsp;</strong> </a>
+    <a style="text-decoration:none;" href="/" class="w3-bar-item w3-button "><span class="glyphicon glyphicon-home"></span>&nbsp; Home</a>
 
     <div class="w3-dropdown-hover">
         <button class="w3-button"><span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -135,7 +135,10 @@ background-color:#37474F;
                 <br/>
 
 
-                        <input ng-model="ctrl.query" ng-keyup ="ctrl.loadData()" name="ticketId" type="text" class="form-control" placeholder="Search here"/>
+                        <input data-toggle="tooltip" data-placement="bottom"
+                               title="Search all Issues open / closed based on the fields Title / Description / Solution"
+                               ng-model="ctrl.query" ng-keyup ="ctrl.loadData()" name="ticketId" type="text" class="form-control"
+                               placeholder="Search all Issues open / closed based on the fields Title / Description / Solution"/>
 
 
                 <br/>

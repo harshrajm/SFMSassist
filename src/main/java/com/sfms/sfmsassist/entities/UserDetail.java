@@ -1,12 +1,7 @@
 package com.sfms.sfmsassist.entities;
 
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.io.Serializable;
 import javax.persistence.*;
-import java.lang.Integer;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -84,8 +79,24 @@ public class UserDetail implements Serializable {
 	@Column(name="USER_UPDATED_BY")
 	private Integer userUpdatedBy;
 
-	public UserDetail() {
+	public UserDetail(UserDetail userDetails) {
+		this.address=((UserDetail) userDetails).getAddress();
+		this.altMailid=userDetails.getAltMailid();
+		this.altMobile=userDetails.getMobile();
+		this.dob=userDetails.getDob();
+		this.password=userDetails.getPassword();
+		this.tcsMailid=userDetails.getTcsMailid();
+		
+		
 	}
+	public UserDetail()
+	{
+		
+	}
+
+	
+	
+
 
 	public long getEmployeeId() {
 		return this.employeeId;
@@ -263,5 +274,32 @@ public class UserDetail implements Serializable {
 	@PreUpdate
 	void updatedAt() {
 		this.dmLstupddt = new Date();
+	}
+
+	@Override
+	public String toString() {
+		return "UserDetail{" +
+				"employeeId=" + employeeId +
+				", address='" + address + '\'' +
+				", altMailid='" + altMailid + '\'' +
+				", altMobile=" + altMobile +
+				", dmLstupddt=" + dmLstupddt +
+				", dob=" + dob +
+				", doj=" + doj +
+				", firstName='" + firstName + '\'' +
+				", gender=" + gender +
+				", lastName='" + lastName + '\'' +
+				", mobile=" + mobile +
+				", password='" + password + '\'' +
+				", pictureLink='" + pictureLink + '\'' +
+				", tcsMailid='" + tcsMailid + '\'' +
+				", userCreatedBy=" + userCreatedBy +
+				", userCreatedOn=" + userCreatedOn +
+				", userDetailsVersion=" + userDetailsVersion +
+				", userEnabled=" + userEnabled +
+				", userLoginStat=" + userLoginStat +
+				", userType=" + userType +
+				", userUpdatedBy=" + userUpdatedBy +
+				'}';
 	}
 }

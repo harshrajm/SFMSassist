@@ -4,17 +4,22 @@ import com.google.gson.Gson;
 import com.sfms.sfmsassist.entities.IssueCategory;
 import com.sfms.sfmsassist.entities.IssueDetail;
 import com.sfms.sfmsassist.entities.IssueSubCategory;
+import com.sfms.sfmsassist.entities.UserDetail;
 import com.sfms.sfmsassist.service.HomeService;
 import com.sfms.sfmsassist.service.IssueDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,11 +60,13 @@ public class RestCallController {
     @RequestMapping("/allIssuesRestCall/{page}")
     public List<IssueDetail> getAllIssuesRestCall(@PathVariable int page){
 
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "issueId"));
         Pageable pageable = new PageRequest(page, 10, sort);
         List<IssueDetail> issueDetails = homeService.getAllIssues(pageable);
 
-        issueDetails = homeController.addStringNames(issueDetails,"allIssues");
+        issueDetails = homeController.addStringNames(issueDetails,"allIssues",principal);
 
         String json = new Gson().toJson(issueDetails);
         System.out.println("rest controller");
@@ -73,6 +80,8 @@ public class RestCallController {
     public List<IssueDetail> getAllIssuesRestCall(@RequestParam (required = false)int uatOrProd,
                                                   @RequestParam (required = false)int pendOrClosed,
                                                   @RequestParam (required = false)boolean yrTkt){
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<IssueDetail> issueDetails = null;
         System.out.println("-----------------in /getIssuesAfterFilter-----------------");
@@ -96,7 +105,7 @@ public class RestCallController {
         }
 
         System.out.println("issueDetails.size() "+issueDetails.size());
-        issueDetails = homeController.addStringNames(issueDetails,"allIssues");
+        issueDetails = homeController.addStringNames(issueDetails,"allIssues",principal);
 
         if(yrTkt == true){
 
@@ -114,6 +123,9 @@ public class RestCallController {
 
     @RequestMapping("/searchIssuesRestCall/{searchQuery}")
     public List<IssueDetail> searchIssuesRestCall(@PathVariable String searchQuery){
+
+        UserDetail principal = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         System.out.println(searchQuery);
 
         List<IssueDetail> issueDetails = null;
@@ -131,9 +143,36 @@ public class RestCallController {
         String json = new Gson().toJson(issueDetails);
         System.out.println(json);
 
-        issueDetails = homeController.addStringNames(issueDetails,"allIssues");
+        issueDetails = homeController.addStringNames(issueDetails,"allIssues",principal);
 
         return issueDetails;
     }
+
+
+    @RequestMapping("/getIssuesBetwnDate")
+    List<IssueDetail> getIssuesBetwnDate(@RequestParam String fDate,
+                                         @RequestParam String tDate) throws Exception{
+        System.out.println("rest controller   :");
+
+
+        System.out.println(fDate);
+        System.out.println(tDate);
+
+        DateFormat df2 = new SimpleDateFormat("dd-M-yyyy");
+
+        Date fDateD = df2.parse(fDate);
+        Date tDateD = df2.parse(tDate);
+
+        List<IssueDetail> data= issueDetailService.getIssueBetween(fDateD,tDateD);
+
+
+        String json = new Gson().toJson(data);
+
+        System.out.println(json);
+
+        return data;
+    }
+
+    // data= issueDetailRepository.findByIssueLoggedOnBetween(fDate,tDate);
 
 }
